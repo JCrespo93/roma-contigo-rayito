@@ -1,0 +1,10 @@
+{
+  "name": "Roma contigo, Rayito",
+  "short_name": "Roma Rayito",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f4efe7",
+  "theme_color": "#f4efe7",
+  "description": "Guía de nuestro primer viaje juntos a Roma, 10–12 octubre de 2026."
+}

@@ -1,14 +1,16 @@
-# Roma contigo, Rayito
+# Roma contigo, Rayito · v2
 
-Web responsive creada como guía para un viaje a Roma del 10 al 12 de octubre de 2026.
+Web responsive para el viaje a Roma del 10 al 12 de octubre de 2026.
 
-## Archivos
-- `index.html`: estructura y contenido.
-- `styles.css`: diseño responsive y temática italiana minimalista.
-- `app.js`: menú móvil, filtros, buscador y checklist guardada en el dispositivo.
+## Novedades v2
+- Sección **Ahora toca** con cuenta atrás y siguiente parada durante el viaje.
+- Enlaces **Cómo llegar** a Google Maps en itinerario y fichas de monumentos.
+- Sección **Información útil** con alojamiento, puntos de encuentro, locker, Terravision y llegada desde Fiumicino.
+- Accesos rápidos a tres restaurantes anotados para la ruta.
+- Caché básica mediante Service Worker para consultar la guía sin conexión después de abrirla una vez.
+- Sigue incluyendo buscador, filtros, menú móvil y checklist de momentos guardada con `localStorage`.
 
-## Cómo abrirla
-Abre `index.html` en cualquier navegador moderno. Para usarla durante el viaje puedes subir la carpeta a GitHub Pages, Netlify o cualquier hosting estático.
+## Despliegue en GitHub Pages
+Sustituye en la raíz del repositorio los archivos por los de esta carpeta y haz un commit. GitHub Pages publicará la actualización automáticamente.
 
-## Nota
-La tipografía se carga desde Google Fonts. Si no hay conexión, el navegador usará tipografías de reserva del sistema.
+Archivos principales: `index.html`, `styles.css`, `app.js`, `manifest.webmanifest`, `sw.js`, `icon.svg`.

@@ -7,6 +7,8 @@
   <meta name="description" content="Guía ligera y romántica de Roma: nuestro primer viaje juntos por la Ciudad Eterna.">
   <title>Roma contigo, Rayito</title>
   <link rel="stylesheet" href="styles.css">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
 </head>
 <body>
   <header class="site-header" id="inicio">
@@ -19,7 +21,7 @@
         <span></span><span></span><span></span><span class="sr-only">Abrir menú</span>
       </button>
       <div class="nav-links" id="main-menu">
-        <a href="#ruta">Ruta</a><a href="#lugares">Lugares</a><a href="#curiosidades">Curiosidades</a><a href="#momentos">Nosotros</a>
+        <a href="#ahora">Ahora</a><a href="#ruta">Ruta</a><a href="#lugares">Lugares</a><a href="#util">Útil</a><a href="#curiosidades">Curiosidades</a><a href="#momentos">Nosotros</a>
       </div>
     </nav>
   </header>
@@ -40,6 +42,21 @@
       <article><span>✈</span><div><strong>Fiumicino</strong><small>Llegada 10 oct · 00:55</small></div></article>
       <article><span>⌂</span><div><strong>Via di Porta Fabbrica, 27</strong><small>Nuestra base junto al Vaticano</small></div></article>
       <article><span>♡</span><div><strong>Primer viaje juntos</strong><small>Roma, octubre de 2026</small></div></article>
+    </section>
+
+    <section class="now-wrap shell" id="ahora" aria-live="polite">
+      <div class="now-card">
+        <div class="now-icon" aria-hidden="true">☀</div>
+        <div class="now-main">
+          <p class="eyebrow">Modo viaje</p>
+          <h2 id="now-title">Preparando Roma…</h2>
+          <p id="now-text">La web calculará automáticamente qué toca y cuánto falta.</p>
+        </div>
+        <div class="now-actions">
+          <a class="mini-btn" id="now-map" href="#ruta">Ver ruta</a>
+          <a class="mini-btn subtle" href="#util">Datos útiles</a>
+        </div>
+      </div>
     </section>
 
     <section class="section shell" id="ruta">
@@ -133,6 +150,86 @@
       </div><p class="no-results" id="no-results" hidden>No encontramos ese lugar. Prueba con “Bernini”, “Miguel Ángel”, “plaza” o “Roma antigua”.</p>
     </div></section>
 
+    <section class="section shell practical-section" id="util">
+      <div class="section-head">
+        <div><p class="eyebrow">A mano durante el viaje</p><h2>Información útil</h2></div>
+        <p>Direcciones, reservas y enlaces rápidos para no tener que buscar nada cuando vayamos con prisas.</p>
+      </div>
+
+      <div class="utility-grid">
+        <article class="utility-card important">
+          <span class="utility-kicker">ALOJAMIENTO</span>
+          <h3>Via di Porta Fabbrica, 27</h3>
+          <p>00165 Roma · junto al Vaticano. Checkout obligatorio el lunes 12 a las 10:00.</p>
+          <div class="utility-actions"><a class="mini-btn" target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&destination=Via%20di%20Porta%20Fabbrica%2027%2C%20Roma%2C%20Italy">Cómo llegar</a><button class="copy-btn" data-copy="Via di Porta Fabbrica, 27, 00165 Roma">Copiar dirección</button></div>
+        </article>
+
+        <article class="utility-card">
+          <span class="utility-kicker">SÁBADO · 10:00</span>
+          <h3>Museos Vaticanos</h3>
+          <p><b>Punto de encuentro:</b> Via Candia, 131. Reserva fija. Llegar sobre las 09:35–09:40.</p>
+          <div class="utility-actions"><a class="mini-btn" target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&destination=Via%20Candia%20131%2C%20Roma%2C%20Italy&travelmode=walking">Abrir Maps</a><button class="copy-btn" data-copy="Via Candia, 131, Roma">Copiar</button></div>
+        </article>
+
+        <article class="utility-card">
+          <span class="utility-kicker">SÁBADO · 18:00</span>
+          <h3>Free tour nocturno</h3>
+          <p><b>Punto de encuentro:</b> Basílica de Santa Maria del Popolo. Duración aproximada: 2 horas.</p>
+          <div class="utility-actions"><a class="mini-btn" target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&destination=Basilica%20di%20Santa%20Maria%20del%20Popolo%2C%20Roma%2C%20Italy&travelmode=walking">Abrir Maps</a></div>
+        </article>
+
+        <article class="utility-card">
+          <span class="utility-kicker">DOMINGO · 12:00</span>
+          <h3>Coliseo, Foro y Palatino</h3>
+          <p><b>Punto de encuentro:</b> Via dei Fori Imperiali, 1. Visita guiada de unas 3 horas.</p>
+          <div class="utility-actions"><a class="mini-btn" target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&destination=Via%20dei%20Fori%20Imperiali%201%2C%20Roma%2C%20Italy&travelmode=walking">Abrir Maps</a><button class="copy-btn" data-copy="Via dei Fori Imperiali, 1, Roma">Copiar</button></div>
+        </article>
+
+        <article class="utility-card">
+          <span class="utility-kicker">DOMINGO · 18:00</span>
+          <h3>Panteón</h3>
+          <p><b>Punto de encuentro:</b> Via del Pozzo delle Cornacchie, 56. Estar allí sobre las 17:40.</p>
+          <div class="utility-actions"><a class="mini-btn" target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&destination=Via%20del%20Pozzo%20delle%20Cornacchie%2056%2C%20Roma%2C%20Italy&travelmode=walking">Abrir Maps</a><button class="copy-btn" data-copy="Via del Pozzo delle Cornacchie, 56, Roma">Copiar</button></div>
+        </article>
+
+        <article class="utility-card important">
+          <span class="utility-kicker">LUNES · MALETAS</span>
+          <h3>Locker junto a Termini</h3>
+          <p><b>Stow Your Bags:</b> Via Filippo Turati, 52. Nos deja muy bien situados para volver después al autobús.</p>
+          <div class="utility-actions"><a class="mini-btn" target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&destination=Via%20Filippo%20Turati%2052%2C%20Roma%2C%20Italy&travelmode=walking">Abrir Maps</a><a class="text-link" target="_blank" rel="noopener" href="https://www.stowyourbags.com/en/shop/rome/">Web del locker ↗</a></div>
+        </article>
+
+        <article class="utility-card important">
+          <span class="utility-kicker">LUNES · ≈14:30</span>
+          <h3>Terravision → Fiumicino</h3>
+          <p><b>Zona de salida:</b> Via Giovanni Giolitti, junto a Termini. Objetivo: estar en FCO antes de las 16:10 para el vuelo de las 17:40.</p>
+          <div class="utility-actions"><a class="mini-btn" target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&destination=Via%20Giovanni%20Giolitti%2038%2C%20Roma%2C%20Italy&travelmode=walking">Parada en Maps</a><a class="text-link" target="_blank" rel="noopener" href="https://www.terravision.eu/airport_transfer/bus-fiumicino-airport-rome/">Terravision ↗</a></div>
+        </article>
+
+        <article class="utility-card">
+          <span class="utility-kicker">LLEGADA · MADRUGADA</span>
+          <h3>Fiumicino → alojamiento</h3>
+          <p>Aterrizamos a las 00:55. El plan recomendado sigue siendo taxi oficial o Uber Black directo al alojamiento para dormir cuanto antes.</p>
+          <div class="utility-actions"><a class="mini-btn" target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&origin=Fiumicino%20Airport%2C%20Italy&destination=Via%20di%20Porta%20Fabbrica%2027%2C%20Roma%2C%20Italy&travelmode=driving">Ver trayecto</a></div>
+        </article>
+      </div>
+
+      <div class="food-strip">
+        <div><p class="eyebrow">Para comer sin romper la ruta</p><h3>Tres ideas que ya llevamos apuntadas</h3></div>
+        <div class="food-links">
+          <a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=Da%20Baffetto%2C%20Via%20del%20Governo%20Vecchio%20114%2C%20Roma">Da Baffetto <span>Navona · pizza</span></a>
+          <a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=Ivo%20a%20Trastevere%2C%20Roma">Ivo a Trastevere <span>Cena del domingo</span></a>
+          <a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=L%27Insalata%20Ricca%20Piazza%20Pasquino%2C%20Roma">L’Insalata Ricca <span>Zona Navona</span></a>
+        </div>
+        <p class="micro-note">Son recomendaciones para encajar con la ruta; comprobad horario y disponibilidad el mismo día.</p>
+      </div>
+
+      <div class="offline-note">
+        <span aria-hidden="true">↓</span>
+        <div><strong>La guía funciona sin conexión tras abrirla una vez.</strong><small>Guardamos HTML, CSS y JavaScript en el dispositivo. Los mapas y webs externas sí necesitan internet.</small></div>
+      </div>
+    </section>
+
     <section class="section curiosity-section" id="curiosidades"><div class="shell"><div class="section-head"><div><p class="eyebrow">Para contar durante el paseo</p><h2>10 curiosidades rápidas</h2></div><p>De esas que se leen en treinta segundos y luego hacen que mires el monumento otra vez.</p></div><div class="curiosity-grid">
       <article><b>01</b><p>El Panteón deja entrar la lluvia por el óculo: el suelo incorpora un sistema de drenaje.</p></article><article><b>02</b><p>“Palacio” está relacionado con <i>Palatium</i>, la colina donde vivieron emperadores romanos.</p></article><article><b>03</b><p>Los “cuernos” del Moisés de Miguel Ángel nacen de una curiosa tradición de traducción bíblica.</p></article><article><b>04</b><p>Piazza Navona conserva la forma del Estadio de Domiciano que se encontraba debajo.</p></article><article><b>05</b><p>La cabeza velada del Nilo en la Fuente de los Cuatro Ríos alude a que entonces se desconocía el origen del río.</p></article><article><b>06</b><p>Castel Sant’Angelo empezó siendo la gigantesca tumba del emperador Adriano.</p></article><article><b>07</b><p>El Campidoglio que vemos hoy fue reorganizado por Miguel Ángel y gira simbólicamente hacia la Roma moderna.</p></article><article><b>08</b><p>El Tridente de Piazza del Popolo son tres grandes calles que se abren hacia el centro como un abanico.</p></article><article><b>09</b><p>En Trevi existe una pequeña “fuente de los enamorados”, casi invisible junto a la gran fuente.</p></article><article><b>10</b><p>Bernini convirtió la capilla de Santa Teresa en un teatro de mármol con espectadores esculpidos.</p></article>
     </div></div></section>
@@ -141,7 +238,7 @@
       <label><input type="checkbox" data-memory="pincio"><span>Una foto juntos en el Pincio al atardecer.</span></label><label><input type="checkbox" data-memory="trevi"><span>Lanzar una moneda en Trevi para tener que volver.</span></label><label><input type="checkbox" data-memory="sisto"><span>Cruzar Ponte Sisto sin mirar el móvil.</span></label><label><input type="checkbox" data-memory="gelato"><span>Compartir un gelato caminando sin rumbo.</span></label><label><input type="checkbox" data-memory="cafe"><span>Tomar un café de pie, como manda Roma.</span></label><label><input type="checkbox" data-memory="rayito"><span>Decir “este momento” cuando aparezca uno que queramos recordar.</span></label>
     </div><p class="saved-note" id="saved-note">✓ Se guarda en este dispositivo</p></div></section>
 
-    <section class="section shell sources"><details><summary>Fuentes y nota sobre la guía</summary><div class="sources-body"><p>El itinerario parte de nuestras reservas y de los documentos de recomendaciones que nos pasaron. Los textos históricos se han contrastado y ampliado con fuentes institucionales y turísticas oficiales.</p><ul><li>Museos Vaticanos — museivaticani.va</li><li>Basílica Papal de San Pedro — basilicasanpietro.va</li><li>Parco archeologico del Colosseo — colosseo.it</li><li>Turismo Roma — turismoroma.it</li><li>Ministero della Cultura / museos estatales italianos — cultura.gov.it</li></ul><p>Los horarios pueden cambiar por celebraciones religiosas, eventos o medidas extraordinarias; antes de entrar, mandan siempre la reserva y la información oficial del día.</p></div></details></section>
+    <section class="section shell sources"><details><summary>Fuentes y nota sobre la guía</summary><div class="sources-body"><p>El itinerario parte de nuestras reservas y de los documentos de recomendaciones que nos pasaron. Los textos históricos se han contrastado y ampliado con fuentes institucionales y turísticas oficiales.</p><ul><li>Museos Vaticanos — museivaticani.va</li><li>Basílica Papal de San Pedro — basilicasanpietro.va</li><li>Parco archeologico del Colosseo — colosseo.it</li><li>Turismo Roma — turismoroma.it</li><li>Ministero della Cultura / museos estatales italianos — cultura.gov.it</li></ul><p>Los horarios pueden cambiar por celebraciones religiosas, eventos o medidas extraordinarias; antes de entrar, mandan siempre la reserva y la información oficial del día. Esta versión añade enlaces prácticos a Maps, modo “Ahora toca” y funcionamiento básico sin conexión.</p></div></details></section>
   </main>
 
   <footer><div class="shell footer-inner"><div><strong>Roma contigo, Rayito</strong><small>10–12 octubre 2026 · Nuestro primer viaje juntos</small></div><a href="#inicio">Volver arriba ↑</a></div></footer>
