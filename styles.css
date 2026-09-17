@@ -34,3 +34,95 @@
 
 @media (max-width:900px){.utility-grid{grid-template-columns:1fr}.food-links{grid-template-columns:1fr 1fr}.now-card{grid-template-columns:auto 1fr}.now-actions{grid-column:1/-1;justify-content:flex-start;padding-left:70px}}
 @media (max-width:680px){.now-wrap{padding-top:18px}.now-card{grid-template-columns:42px 1fr;padding:17px 16px;gap:12px}.now-icon{width:42px;height:42px}.now-main h2{font-size:22px}.now-actions{padding-left:54px}.utility-card{padding:18px}.food-links{grid-template-columns:1fr}.food-strip{padding:20px}.utility-actions .mini-btn,.utility-actions .copy-btn{flex:1}.nav-links{max-height:calc(100vh - 82px);overflow:auto}}
+
+
+/* V3 · comer, Plan B, italiano y diario */
+.food-section{scroll-margin-top:82px}
+.food-tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:24px}
+.food-tab{border:1px solid var(--line);background:rgba(255,255,255,.35);color:var(--muted);border-radius:999px;padding:9px 14px;font-size:12px;font-weight:700;cursor:pointer}
+.food-tab.active{background:var(--ink);border-color:var(--ink);color:var(--paper)}
+.food-zone-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+.food-zone-card{background:var(--paper);border:1px solid var(--line);border-radius:22px;padding:22px}
+.food-zone-card[hidden]{display:none}
+.food-zone-head{display:flex;align-items:center;gap:13px;padding-bottom:15px;border-bottom:1px solid var(--line)}
+.food-zone-head>span{width:38px;height:38px;border-radius:50%;display:grid;place-items:center;background:var(--terracotta);color:#fff;font:20px/1 "DM Serif Display",serif}
+.food-zone-head small{display:block;color:var(--muted);font-size:9px;letter-spacing:.13em;font-weight:800}
+.food-zone-head h3{font-size:25px;margin-top:2px}
+.zone-note{font-size:12px;color:var(--muted);margin:13px 0 5px}
+.food-spot{display:grid;grid-template-columns:38px 1fr auto;gap:10px;align-items:center;padding:13px 0;border-bottom:1px dashed var(--line)}
+.food-spot:last-child{border-bottom:0}
+.food-emoji{width:34px;height:34px;border-radius:10px;background:#efe6da;display:grid;place-items:center}
+.food-spot strong,.food-spot small{display:block}
+.food-spot strong{font-size:13px}
+.food-spot small{font-size:11px;color:var(--muted);margin-top:2px}
+.food-spot a{font-size:11px;font-weight:800;color:var(--terracotta);text-decoration:none;white-space:nowrap}
+.food-help{margin-top:16px;background:var(--ink);color:var(--paper);border-radius:18px;padding:16px 18px;display:flex;align-items:center;justify-content:space-between;gap:18px}
+.food-help strong,.food-help small{display:block}
+.food-help strong{font-size:13px}
+.food-help small{font-size:11px;color:#c9c5bb;margin-top:2px}
+.food-help .mini-btn.subtle{border-color:rgba(255,255,255,.25);color:var(--paper)}
+
+.utility-subhead{margin:46px 0 18px;display:grid;grid-template-columns:1fr .8fr;gap:28px;align-items:end}
+.utility-subhead .eyebrow{margin-bottom:6px}
+.utility-subhead h3{font-size:34px}
+.utility-subhead>p{margin:0;color:var(--muted);font-size:13px}
+.planb-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.planb-card{border:1px solid var(--line);border-radius:18px;background:#f8f2e9;padding:18px;display:grid;grid-template-columns:42px 1fr;gap:12px}
+.planb-card>span{width:38px;height:38px;border-radius:50%;display:grid;place-items:center;background:#e9ddcb}
+.planb-card strong{font-size:14px}
+.planb-card p{margin:5px 0 0;color:var(--muted);font-size:12px}
+.safety-title{margin-top:54px}
+.safety-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.safety-card{border:1px solid var(--line);border-radius:17px;background:var(--paper);padding:16px;display:grid;grid-template-columns:44px 1fr auto;gap:12px;align-items:center}
+.safety-card.emergency{background:#f2e5df;border-color:#ddc4b8}
+.safety-icon{width:42px;height:42px;border-radius:12px;background:var(--ink);color:var(--paper);display:grid;place-items:center;font-size:11px;font-weight:800;letter-spacing:.04em}
+.safety-card.emergency .safety-icon{background:var(--terracotta)}
+.safety-card strong{display:block;font-size:13px}
+.safety-card p{margin:3px 0 0;color:var(--muted);font-size:11px}
+.safety-card>a,.safety-actions a{font-size:11px;font-weight:800;color:var(--terracotta);text-decoration:none;white-space:nowrap}
+.safety-actions{display:flex;flex-direction:column;align-items:flex-end;gap:4px}
+
+.italian-section{scroll-margin-top:82px}
+.phrase-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.phrase-card{position:relative;border:1px solid var(--line);background:var(--paper);border-radius:18px;padding:18px;min-height:145px;display:flex;flex-direction:column}
+.phrase-card>span{font-size:9px;letter-spacing:.13em;text-transform:uppercase;color:var(--terracotta);font-weight:800}
+.phrase-card strong{font-family:"DM Serif Display",serif;font-size:20px;font-weight:400;line-height:1.15;margin:10px 0 5px}
+.phrase-card small{color:var(--muted);font-size:11px}
+.phrase-copy{margin-top:auto;align-self:flex-start;border:0;background:transparent;padding:9px 0 0;color:var(--olive);font-size:10px;font-weight:800;cursor:pointer}
+.phrase-copy.copied{color:var(--terracotta)}
+
+.journal-card{margin-top:18px;border:1px solid var(--line);border-radius:30px;background:#ebe2d5;padding:38px}
+.journal-head{display:flex;align-items:flex-end;justify-content:space-between;gap:30px;margin-bottom:24px}
+.journal-head h2{font-size:46px}
+.journal-head p:not(.eyebrow){max-width:640px;color:var(--muted);font-size:13px;margin:10px 0 0}
+.journal-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.journal-grid label{display:flex;flex-direction:column;gap:9px}
+.journal-grid label>span{font-size:11px;color:var(--muted)}
+.journal-grid textarea{width:100%;resize:vertical;min-height:128px;border:1px solid var(--line);border-radius:15px;background:var(--paper);color:var(--ink);padding:14px;outline:0;font:13px/1.5 "DM Sans",sans-serif}
+.journal-grid textarea:focus{border-color:var(--terracotta);box-shadow:0 0 0 3px rgba(155,91,69,.08)}
+.journal-status{display:flex;justify-content:space-between;align-items:center;gap:14px;margin-top:14px;color:var(--muted);font-size:10px}
+.privacy-pill{border:1px solid rgba(102,112,90,.35);color:var(--olive);border-radius:999px;padding:5px 9px;font-weight:800}
+
+@media (max-width:900px){
+  .food-zone-grid,.planb-grid,.safety-grid{grid-template-columns:1fr}
+  .utility-subhead{grid-template-columns:1fr;gap:6px}
+  .phrase-grid{grid-template-columns:repeat(2,1fr)}
+  .journal-head{align-items:flex-start;flex-direction:column}
+  .journal-grid{grid-template-columns:1fr}
+}
+@media (max-width:680px){
+  .food-zone-grid{grid-template-columns:1fr}
+  .food-spot{grid-template-columns:36px 1fr}
+  .food-spot a{grid-column:2;margin-top:-4px}
+  .food-help{align-items:flex-start;flex-direction:column}
+  .food-help .mini-btn{width:100%}
+  .safety-card{grid-template-columns:42px 1fr}
+  .safety-card>a,.safety-actions{grid-column:2;align-items:flex-start}
+  .safety-actions{flex-direction:row;gap:14px}
+  .phrase-grid{grid-template-columns:1fr}
+  .phrase-card{min-height:130px}
+  .journal-card{padding:26px 18px}
+  .journal-head h2{font-size:38px}
+  .journal-head .mini-btn{width:100%}
+  .journal-status{align-items:flex-start;flex-direction:column}
+}

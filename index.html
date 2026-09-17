@@ -21,7 +21,7 @@
         <span></span><span></span><span></span><span class="sr-only">Abrir menú</span>
       </button>
       <div class="nav-links" id="main-menu">
-        <a href="#ahora">Ahora</a><a href="#ruta">Ruta</a><a href="#lugares">Lugares</a><a href="#util">Útil</a><a href="#curiosidades">Curiosidades</a><a href="#momentos">Nosotros</a>
+        <a href="#ahora">Ahora</a><a href="#ruta">Ruta</a><a href="#lugares">Lugares</a><a href="#comer">Comer</a><a href="#util">Útil</a><a href="#italiano">Italiano</a><a href="#curiosidades">Curiosidades</a><a href="#momentos">Nosotros</a>
       </div>
     </nav>
   </header>
@@ -150,10 +150,102 @@
       </div><p class="no-results" id="no-results" hidden>No encontramos ese lugar. Prueba con “Bernini”, “Miguel Ángel”, “plaza” o “Roma antigua”.</p>
     </div></section>
 
+
+    <section class="section shell food-section" id="comer">
+      <div class="section-head">
+        <div><p class="eyebrow">Sin romper la ruta</p><h2>Comer cerca de aquí</h2></div>
+        <p>Opciones pensadas por zonas para decidir rápido cuando aparezca el hambre. No son obligaciones: son salvavidas con pasta, pizza, café y gelato.</p>
+      </div>
+
+      <div class="food-tabs" role="tablist" aria-label="Filtrar sitios para comer por zona">
+        <button class="food-tab active" data-food-zone="all">Todas</button>
+        <button class="food-tab" data-food-zone="vaticano">Vaticano</button>
+        <button class="food-tab" data-food-zone="monti">Coliseo · Monti</button>
+        <button class="food-tab" data-food-zone="navona">Navona</button>
+        <button class="food-tab" data-food-zone="trastevere">Trastevere</button>
+      </div>
+
+      <div class="food-zone-grid">
+        <article class="food-zone-card" data-food-card="vaticano">
+          <div class="food-zone-head"><span>01</span><div><small>SÁBADO</small><h3>Vaticano · Prati</h3></div></div>
+          <p class="zone-note">Especialmente útil al salir de los Museos Vaticanos sobre las 13:00.</p>
+          <div class="food-spot">
+            <span class="food-emoji">☕</span><div><strong>Caffè delle Commari</strong><small>Café · comida rápida · muy cerca de los Museos</small></div>
+            <a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=Caff%C3%A8%20delle%20Commari%2C%20Via%20Santamaura%2022%2C%20Roma">Maps ↗</a>
+          </div>
+          <div class="food-spot">
+            <span class="food-emoji">🍕</span><div><strong>L’Isola della Pizza</strong><small>Pizza y pasta romana · opción sentados en Prati</small></div>
+            <a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=L%27Isola%20della%20Pizza%2C%20Via%20degli%20Scipioni%2045%2C%20Roma">Maps ↗</a>
+          </div>
+          <div class="food-spot">
+            <span class="food-emoji">🍦</span><div><strong>Old Bridge Gelateria</strong><small>Gelato · pegada a las murallas del Vaticano</small></div>
+            <a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=Old%20Bridge%20Gelateria%2C%20Viale%20dei%20Bastioni%20di%20Michelangelo%205%2C%20Roma">Maps ↗</a>
+          </div>
+        </article>
+
+        <article class="food-zone-card" data-food-card="monti">
+          <div class="food-zone-head"><span>02</span><div><small>DOMINGO</small><h3>Coliseo · Monti</h3></div></div>
+          <p class="zone-note">Para comer al terminar la visita guiada, sin alejarnos del camino hacia Piazza Venezia.</p>
+          <div class="food-spot">
+            <span class="food-emoji">🍕</span><div><strong>La Prezzemolina</strong><small>Pizza al taglio, supplì y lasaña · opción muy rápida</small></div>
+            <a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=La%20Prezzemolina%2C%20Via%20del%20Colosseo%201%2C%20Roma">Maps ↗</a>
+          </div>
+          <div class="food-spot">
+            <span class="food-emoji">🍝</span><div><strong>Ce Stamo a Pensà</strong><small>Street food romano · horario amplio · Monti</small></div>
+            <a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=Ce%20Stamo%20a%20Pens%C3%A0%2C%20Via%20Leonina%2081%2C%20Roma">Maps ↗</a>
+          </div>
+          <div class="food-spot">
+            <span class="food-emoji">🍦</span><div><strong>Gelateria dell’Angeletto</strong><small>Helado artesanal · buena parada de camino</small></div>
+            <a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=Gelateria%20dell%27Angeletto%2C%20Via%20dell%27Angeletto%2015%2C%20Roma">Maps ↗</a>
+          </div>
+        </article>
+
+        <article class="food-zone-card" data-food-card="navona">
+          <div class="food-zone-head"><span>03</span><div><small>DOMINGO</small><h3>Panteón · Navona</h3></div></div>
+          <p class="zone-note">Opciones de los apuntes de viaje más un gelato que encaja en el paseo nocturno.</p>
+          <div class="food-spot">
+            <span class="food-emoji">🍕</span><div><strong>Da Baffetto</strong><small>Pizza romana · Via del Governo Vecchio</small></div>
+            <a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=Da%20Baffetto%2C%20Via%20del%20Governo%20Vecchio%20114%2C%20Roma">Maps ↗</a>
+          </div>
+          <div class="food-spot">
+            <span class="food-emoji">🍝</span><div><strong>L’Insalata Ricca · Piazza Pasquino</strong><small>Pasta, pizza y platos sencillos · detrás de Navona</small></div>
+            <a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=L%27Insalata%20Ricca%20Piazza%20Pasquino%2072%2C%20Roma">Maps ↗</a>
+          </div>
+          <div class="food-spot">
+            <span class="food-emoji">🍦</span><div><strong>Gelateria del Teatro</strong><small>Gelato artesanal · Via dei Coronari</small></div>
+            <a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=Gelateria%20del%20Teatro%2C%20Via%20dei%20Coronari%2065%2C%20Roma">Maps ↗</a>
+          </div>
+        </article>
+
+        <article class="food-zone-card" data-food-card="trastevere">
+          <div class="food-zone-head"><span>04</span><div><small>DOMINGO NOCHE</small><h3>Trastevere</h3></div></div>
+          <p class="zone-note">Para terminar el día cenando sin volver a cruzar media Roma.</p>
+          <div class="food-spot">
+            <span class="food-emoji">🍕</span><div><strong>Ivo a Trastevere</strong><small>Pizza y cocina romana · recomendado en vuestro itinerario</small></div>
+            <a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=Ivo%20a%20Trastevere%2C%20Via%20di%20San%20Francesco%20a%20Ripa%20158%2C%20Roma">Maps ↗</a>
+          </div>
+          <div class="food-spot">
+            <span class="food-emoji">🍝</span><div><strong>Cave Canem</strong><small>Trattoria y pizzería romana · Piazza di San Calisto</small></div>
+            <a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=Cave%20Canem%2C%20Piazza%20di%20San%20Calisto%2011%2C%20Roma">Maps ↗</a>
+          </div>
+          <div class="food-spot">
+            <span class="food-emoji">🍦</span><div><strong>Otaleg</strong><small>Gelato artesanal · ideal para después de cenar</small></div>
+            <a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=Otaleg%2C%20Via%20di%20San%20Cosimato%2014a%2C%20Roma">Maps ↗</a>
+          </div>
+        </article>
+      </div>
+
+      <div class="food-help">
+        <div><strong>¿Nada os convence?</strong><small>Google Maps puede buscar opciones alrededor de vuestra posición actual.</small></div>
+        <a class="mini-btn subtle" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=ristoranti%20vicino%20a%20me">Buscar cerca de mí ↗</a>
+      </div>
+      <p class="micro-note">Horarios y días de cierre pueden cambiar. La selección prioriza ubicación y encaje con la ruta; comprobad el mismo día antes de desviaros.</p>
+    </section>
+
     <section class="section shell practical-section" id="util">
       <div class="section-head">
         <div><p class="eyebrow">A mano durante el viaje</p><h2>Información útil</h2></div>
-        <p>Direcciones, reservas y enlaces rápidos para no tener que buscar nada cuando vayamos con prisas.</p>
+        <p>Direcciones, transporte, emergencias y planes de respaldo para no tener que improvisar cuando vayamos con prisas.</p>
       </div>
 
       <div class="utility-grid">
@@ -214,14 +306,48 @@
         </article>
       </div>
 
-      <div class="food-strip">
-        <div><p class="eyebrow">Para comer sin romper la ruta</p><h3>Tres ideas que ya llevamos apuntadas</h3></div>
-        <div class="food-links">
-          <a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=Da%20Baffetto%2C%20Via%20del%20Governo%20Vecchio%20114%2C%20Roma">Da Baffetto <span>Navona · pizza</span></a>
-          <a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=Ivo%20a%20Trastevere%2C%20Roma">Ivo a Trastevere <span>Cena del domingo</span></a>
-          <a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=L%27Insalata%20Ricca%20Piazza%20Pasquino%2C%20Roma">L’Insalata Ricca <span>Zona Navona</span></a>
-        </div>
-        <p class="micro-note">Son recomendaciones para encajar con la ruta; comprobad horario y disponibilidad el mismo día.</p>
+
+      <div class="utility-subhead">
+        <div><p class="eyebrow">Si algo se tuerce</p><h3>Plan B sin dramas</h3></div>
+        <p>Qué sacrificar primero para proteger las reservas importantes y seguir disfrutando del viaje.</p>
+      </div>
+      <div class="planb-grid">
+        <article class="planb-card"><span>☂</span><div><strong>Si llueve el sábado</strong><p>Mantenemos Vaticano y San Pedro. Pincio pasa a opcional; ganamos tiempo con un café en Prati y vamos directos a Santa Maria del Popolo. El free tour dependerá de las instrucciones de su organizador.</p></div></article>
+        <article class="planb-card"><span>⌛</span><div><strong>Si el Vaticano se alarga</strong><p>Lo primero que quitamos es Castel Sant’Angelo exterior. Si seguimos justos, eliminamos Pincio y vamos en taxi/metro directamente a Piazza del Popolo para estar con margen antes de las 18:00.</p></div></article>
+        <article class="planb-card"><span>🏛</span><div><strong>Si el Coliseo termina tarde</strong><p>La prioridad es llegar al Panteón a las 17:40. Podemos recortar Piazza Venezia y, sobre todo, saltarnos Il Gesù. Campidoglio se puede ver en 10–15 minutos.</p></div></article>
+        <article class="planb-card"><span>☕</span><div><strong>Si el lunes estamos agotados</strong><p>Trevi y Piazza di Spagna son prescindibles si ya las hemos visto en el free tour. Conservamos checkout, locker y margen para Terravision. La cúpula también puede caer si hace muy mal tiempo o necesitamos dormir.</p></div></article>
+      </div>
+
+      <div class="utility-subhead safety-title">
+        <div><p class="eyebrow">Por si acaso</p><h3>Emergencias y transporte</h3></div>
+        <p>Lo importante reunido en una sola pantalla. Ninguno de estos datos sustituye las indicaciones de las autoridades.</p>
+      </div>
+      <div class="safety-grid">
+        <article class="safety-card emergency">
+          <span class="safety-icon">112</span>
+          <div><strong>Número único de emergencias</strong><p>Policía, urgencias y situaciones de emergencia en Italia.</p></div>
+          <a href="tel:112">Llamar</a>
+        </article>
+        <article class="safety-card">
+          <span class="safety-icon">ES</span>
+          <div><strong>Consulado General de España</strong><p>Via Campo Marzio, 34 · emergencia consular 24 h: +39 335 333 438.</p></div>
+          <div class="safety-actions"><a href="tel:+39335333438">Llamar</a><a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=Consulado%20General%20de%20Espa%C3%B1a%2C%20Via%20Campo%20Marzio%2034%2C%20Roma">Maps ↗</a></div>
+        </article>
+        <article class="safety-card">
+          <span class="safety-icon">TX</span>
+          <div><strong>Taxi oficial</strong><p>Vehículos blancos, rótulo TAXI y licencia visible. ChiamaTaxi Roma Capitale: 060609.</p></div>
+          <a href="tel:060609">060609</a>
+        </article>
+        <article class="safety-card">
+          <span class="safety-icon">+</span>
+          <div><strong>Farmacias de guardia</strong><p>El Colegio de Farmacéuticos de Roma publica la lista diaria y las farmacias H24.</p></div>
+          <a target="_blank" rel="noopener" href="https://www.ordinefarmacistiroma.it/cittadino/turni-delle-farmacie.html">Ver turnos ↗</a>
+        </article>
+        <article class="safety-card">
+          <span class="safety-icon">N</span>
+          <div><strong>Transporte nocturno</strong><p>ATAC publica mapas de líneas nocturnas; NMA, NMB/NMB1 y NMC cubren ejes de metro fuera de horario.</p></div>
+          <a target="_blank" rel="noopener" href="https://www.atac.roma.it/en/utility/maps">Mapa ATAC ↗</a>
+        </article>
       </div>
 
       <div class="offline-note">
@@ -230,15 +356,66 @@
       </div>
     </section>
 
+
+    <section class="section shell italian-section" id="italiano">
+      <div class="section-head">
+        <div><p class="eyebrow">Italiano de bolsillo</p><h2>Quince frases que sí usaremos</h2></div>
+        <p>Inspiradas en el vocabulario del cuadernillo que nos pasaron, pero normalizadas para llevar expresiones sencillas y naturales en el móvil.</p>
+      </div>
+
+      <div class="phrase-grid">
+        <article class="phrase-card"><span>Hola</span><strong>Buongiorno / Buonasera</strong><small>Buenos días / Buenas tardes-noches</small><button class="phrase-copy" data-copy="Buongiorno">Copiar</button></article>
+        <article class="phrase-card"><span>Cortesía</span><strong>Per favore · Grazie mille</strong><small>Por favor · Muchas gracias</small><button class="phrase-copy" data-copy="Per favore. Grazie mille.">Copiar</button></article>
+        <article class="phrase-card"><span>Perdón</span><strong>Mi scusi</strong><small>Disculpe / perdone</small><button class="phrase-copy" data-copy="Mi scusi">Copiar</button></article>
+        <article class="phrase-card"><span>Orientarse</span><strong>Dov’è…?</strong><small>¿Dónde está…?</small><button class="phrase-copy" data-copy="Mi scusi, dov'è...?">Copiar</button></article>
+        <article class="phrase-card"><span>Mesa</span><strong>Un tavolo per due, per favore</strong><small>Una mesa para dos, por favor</small><button class="phrase-copy" data-copy="Un tavolo per due, per favore.">Copiar</button></article>
+        <article class="phrase-card"><span>Pedir</span><strong>Vorrei…</strong><small>Quisiera…</small><button class="phrase-copy" data-copy="Vorrei...">Copiar</button></article>
+        <article class="phrase-card"><span>Café</span><strong>Due caffè, per favore</strong><small>Dos cafés, por favor</small><button class="phrase-copy" data-copy="Due caffè, per favore.">Copiar</button></article>
+        <article class="phrase-card"><span>Agua</span><strong>Acqua naturale / frizzante</strong><small>Agua sin gas / con gas</small><button class="phrase-copy" data-copy="Acqua naturale, per favore.">Copiar</button></article>
+        <article class="phrase-card"><span>Cuenta</span><strong>Il conto, per favore</strong><small>La cuenta, por favor</small><button class="phrase-copy" data-copy="Il conto, per favore.">Copiar</button></article>
+        <article class="phrase-card"><span>Tarjeta</span><strong>Possiamo pagare con la carta?</strong><small>¿Podemos pagar con tarjeta?</small><button class="phrase-copy" data-copy="Possiamo pagare con la carta?">Copiar</button></article>
+        <article class="phrase-card"><span>Baño</span><strong>Dov’è il bagno?</strong><small>¿Dónde está el baño?</small><button class="phrase-copy" data-copy="Dov'è il bagno?">Copiar</button></article>
+        <article class="phrase-card"><span>No entiendo</span><strong>Non capisco. Può ripetere?</strong><small>No entiendo. ¿Puede repetir?</small><button class="phrase-copy" data-copy="Non capisco. Può ripetere?">Copiar</button></article>
+        <article class="phrase-card"><span>Idioma</span><strong>Parla spagnolo o inglese?</strong><small>¿Habla español o inglés?</small><button class="phrase-copy" data-copy="Parla spagnolo o inglese?">Copiar</button></article>
+        <article class="phrase-card"><span>Comida</span><strong>Senza formaggio, per favore</strong><small>Sin queso, por favor</small><button class="phrase-copy" data-copy="Senza formaggio, per favore.">Copiar</button></article>
+        <article class="phrase-card"><span>Billetes</span><strong>Due biglietti, per favore</strong><small>Dos billetes/entradas, por favor</small><button class="phrase-copy" data-copy="Due biglietti, per favore.">Copiar</button></article>
+      </div>
+      <p class="micro-note">Consejo: en Italia un “caffè” normalmente significa espresso. “Latte” a secas significa leche.</p>
+    </section>
+
     <section class="section curiosity-section" id="curiosidades"><div class="shell"><div class="section-head"><div><p class="eyebrow">Para contar durante el paseo</p><h2>10 curiosidades rápidas</h2></div><p>De esas que se leen en treinta segundos y luego hacen que mires el monumento otra vez.</p></div><div class="curiosity-grid">
       <article><b>01</b><p>El Panteón deja entrar la lluvia por el óculo: el suelo incorpora un sistema de drenaje.</p></article><article><b>02</b><p>“Palacio” está relacionado con <i>Palatium</i>, la colina donde vivieron emperadores romanos.</p></article><article><b>03</b><p>Los “cuernos” del Moisés de Miguel Ángel nacen de una curiosa tradición de traducción bíblica.</p></article><article><b>04</b><p>Piazza Navona conserva la forma del Estadio de Domiciano que se encontraba debajo.</p></article><article><b>05</b><p>La cabeza velada del Nilo en la Fuente de los Cuatro Ríos alude a que entonces se desconocía el origen del río.</p></article><article><b>06</b><p>Castel Sant’Angelo empezó siendo la gigantesca tumba del emperador Adriano.</p></article><article><b>07</b><p>El Campidoglio que vemos hoy fue reorganizado por Miguel Ángel y gira simbólicamente hacia la Roma moderna.</p></article><article><b>08</b><p>El Tridente de Piazza del Popolo son tres grandes calles que se abren hacia el centro como un abanico.</p></article><article><b>09</b><p>En Trevi existe una pequeña “fuente de los enamorados”, casi invisible junto a la gran fuente.</p></article><article><b>10</b><p>Bernini convirtió la capilla de Santa Teresa en un teatro de mármol con espectadores esculpidos.</p></article>
     </div></div></section>
 
-    <section class="section shell" id="momentos"><div class="memory-card"><div><p class="eyebrow">Nuestro viaje</p><h2>Pequeños momentos para guardar</h2><p>No hace falta cumplirlos. Son solo excusas para detenernos un minuto entre tanta Roma.</p></div><div class="memory-list">
-      <label><input type="checkbox" data-memory="pincio"><span>Una foto juntos en el Pincio al atardecer.</span></label><label><input type="checkbox" data-memory="trevi"><span>Lanzar una moneda en Trevi para tener que volver.</span></label><label><input type="checkbox" data-memory="sisto"><span>Cruzar Ponte Sisto sin mirar el móvil.</span></label><label><input type="checkbox" data-memory="gelato"><span>Compartir un gelato caminando sin rumbo.</span></label><label><input type="checkbox" data-memory="cafe"><span>Tomar un café de pie, como manda Roma.</span></label><label><input type="checkbox" data-memory="rayito"><span>Decir “este momento” cuando aparezca uno que queramos recordar.</span></label>
-    </div><p class="saved-note" id="saved-note">✓ Se guarda en este dispositivo</p></div></section>
+    <section class="section shell" id="momentos">
+      <div class="memory-card">
+        <div><p class="eyebrow">Nuestro viaje</p><h2>Pequeños momentos para guardar</h2><p>No hace falta cumplirlos. Son solo excusas para detenernos un minuto entre tanta Roma.</p></div>
+        <div class="memory-list">
+          <label><input type="checkbox" data-memory="pincio"><span>Una foto juntos en el Pincio al atardecer.</span></label>
+          <label><input type="checkbox" data-memory="trevi"><span>Lanzar una moneda en Trevi para tener que volver.</span></label>
+          <label><input type="checkbox" data-memory="sisto"><span>Cruzar Ponte Sisto sin mirar el móvil.</span></label>
+          <label><input type="checkbox" data-memory="gelato"><span>Compartir un gelato caminando sin rumbo.</span></label>
+          <label><input type="checkbox" data-memory="cafe"><span>Tomar un café de pie, como manda Roma.</span></label>
+          <label><input type="checkbox" data-memory="rayito"><span>Decir “este momento” cuando aparezca uno que queramos recordar.</span></label>
+        </div>
+        <p class="saved-note" id="saved-note">✓ Se guarda en este dispositivo</p>
+      </div>
 
-    <section class="section shell sources"><details><summary>Fuentes y nota sobre la guía</summary><div class="sources-body"><p>El itinerario parte de nuestras reservas y de los documentos de recomendaciones que nos pasaron. Los textos históricos se han contrastado y ampliado con fuentes institucionales y turísticas oficiales.</p><ul><li>Museos Vaticanos — museivaticani.va</li><li>Basílica Papal de San Pedro — basilicasanpietro.va</li><li>Parco archeologico del Colosseo — colosseo.it</li><li>Turismo Roma — turismoroma.it</li><li>Ministero della Cultura / museos estatales italianos — cultura.gov.it</li></ul><p>Los horarios pueden cambiar por celebraciones religiosas, eventos o medidas extraordinarias; antes de entrar, mandan siempre la reserva y la información oficial del día. Esta versión añade enlaces prácticos a Maps, modo “Ahora toca” y funcionamiento básico sin conexión.</p></div></details></section>
+      <div class="journal-card">
+        <div class="journal-head">
+          <div><p class="eyebrow">Roma, tú y yo</p><h2>El momento de hoy</h2><p>Una frase por día. Nada se envía a GitHub ni a ningún servidor: se guarda únicamente en el navegador de este dispositivo.</p></div>
+          <button class="mini-btn subtle" id="copy-memories" type="button">Copiar nuestros recuerdos</button>
+        </div>
+        <div class="journal-grid">
+          <label><span><b>Sábado 10</b> · Vaticano y atardecer</span><textarea data-journal="d10" rows="5" placeholder="Hoy quiero recordar…"></textarea></label>
+          <label><span><b>Domingo 11</b> · Roma imperial y Trastevere</span><textarea data-journal="d11" rows="5" placeholder="El momento del día fue…"></textarea></label>
+          <label><span><b>Lunes 12</b> · Nuestra última mañana</span><textarea data-journal="d12" rows="5" placeholder="Antes de irnos de Roma…"></textarea></label>
+        </div>
+        <div class="journal-status"><span id="journal-status">Guardado local automáticamente</span><span class="privacy-pill">Privado en este dispositivo</span></div>
+      </div>
+    </section>
+
+    <section class="section shell sources"><details><summary>Fuentes y nota sobre la guía</summary><div class="sources-body"><p>El itinerario parte de nuestras reservas y de los documentos de recomendaciones que nos pasaron. Los textos históricos se han contrastado y ampliado con fuentes institucionales y turísticas oficiales.</p><ul><li>Museos Vaticanos — museivaticani.va</li><li>Basílica Papal de San Pedro — basilicasanpietro.va</li><li>Parco archeologico del Colosseo — colosseo.it</li><li>Turismo Roma — turismoroma.it</li><li>Ministero della Cultura / museos estatales italianos — cultura.gov.it</li></ul><p>Los horarios pueden cambiar por celebraciones religiosas, eventos o medidas extraordinarias; antes de entrar, mandan siempre la reserva y la información oficial del día. Esta versión añade comida por zonas, Plan B, emergencias, mini italiano y un pequeño diario local. Los recuerdos escritos se quedan en el navegador y no se envían a GitHub.</p></div></details></section>
   </main>
 
   <footer><div class="shell footer-inner"><div><strong>Roma contigo, Rayito</strong><small>10–12 octubre 2026 · Nuestro primer viaje juntos</small></div><a href="#inicio">Volver arriba ↑</a></div></footer>

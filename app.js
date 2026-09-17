@@ -19,6 +19,18 @@ function filterCards(){const q=normalize(searchInput?.value||'');let visible=0;c
 searchInput?.addEventListener('input',filterCards);
 chips.forEach(chip=>chip.addEventListener('click',()=>{chips.forEach(c=>c.classList.remove('active'));chip.classList.add('active');activeFilter=chip.dataset.filter;filterCards()}));
 
+
+// Filtro de restaurantes por zona
+const foodTabs=document.querySelectorAll('.food-tab');
+const foodCards=document.querySelectorAll('[data-food-card]');
+foodTabs.forEach(tab=>tab.addEventListener('click',()=>{
+  foodTabs.forEach(t=>t.classList.remove('active'));
+  tab.classList.add('active');
+  const zone=tab.dataset.foodZone;
+  foodCards.forEach(card=>card.hidden=zone!=='all'&&card.dataset.foodCard!==zone);
+}));
+
+
 // Checklist sentimental: se guarda solo en este navegador
 const memoryInputs=document.querySelectorAll('[data-memory]');
 const savedNote=document.querySelector('#saved-note');
@@ -26,8 +38,51 @@ const storageKey='roma-rayito-memories-v1';
 try{const saved=JSON.parse(localStorage.getItem(storageKey)||'{}');memoryInputs.forEach(input=>input.checked=Boolean(saved[input.dataset.memory]))}catch(e){}
 memoryInputs.forEach(input=>input.addEventListener('change',()=>{const data={};memoryInputs.forEach(i=>data[i.dataset.memory]=i.checked);try{localStorage.setItem(storageKey,JSON.stringify(data))}catch(e){}savedNote?.classList.add('show');setTimeout(()=>savedNote?.classList.remove('show'),1500)}));
 
+
+// Diario privado del viaje: solo localStorage del navegador
+const journalAreas=document.querySelectorAll('[data-journal]');
+const journalKey='roma-rayito-journal-v1';
+const journalStatus=document.querySelector('#journal-status');
+try{
+  const savedJournal=JSON.parse(localStorage.getItem(journalKey)||'{}');
+  journalAreas.forEach(area=>area.value=savedJournal[area.dataset.journal]||'');
+}catch(e){}
+let journalTimer;
+journalAreas.forEach(area=>area.addEventListener('input',()=>{
+  clearTimeout(journalTimer);
+  journalTimer=setTimeout(()=>{
+    const data={};
+    journalAreas.forEach(a=>data[a.dataset.journal]=a.value);
+    try{
+      localStorage.setItem(journalKey,JSON.stringify(data));
+      if(journalStatus){
+        journalStatus.textContent='Guardado local ✓';
+        setTimeout(()=>journalStatus.textContent='Guardado local automáticamente',1200);
+      }
+    }catch(e){
+      if(journalStatus) journalStatus.textContent='No se ha podido guardar en este navegador';
+    }
+  },250);
+}));
+document.querySelector('#copy-memories')?.addEventListener('click',async e=>{
+  const checked=[...memoryInputs].filter(i=>i.checked).map(i=>'• '+i.parentElement.innerText.trim());
+  const notes=[...journalAreas].map(a=>{
+    const labels={d10:'Sábado 10',d11:'Domingo 11',d12:'Lunes 12'};
+    return `${labels[a.dataset.journal]}: ${a.value.trim()||'—'}`;
+  });
+  const text=`ROMA CONTIGO, RAYITO ♡\n\nMomentos marcados:\n${checked.length?checked.join('\n'):'—'}\n\nNuestro diario:\n${notes.join('\n\n')}`;
+  const btn=e.currentTarget;
+  try{
+    await navigator.clipboard.writeText(text);
+    const old=btn.textContent;
+    btn.textContent='Recuerdos copiados ✓';
+    setTimeout(()=>btn.textContent=old,1600);
+  }catch(err){}
+});
+
+
 // Navegación activa
-const sections=['ahora','ruta','lugares','util','curiosidades','momentos'].map(id=>document.getElementById(id)).filter(Boolean);
+const sections=['ahora','ruta','lugares','comer','util','italiano','curiosidades','momentos'].map(id=>document.getElementById(id)).filter(Boolean);
 const links=[...document.querySelectorAll('.nav-links a')];
 const observer=new IntersectionObserver(entries=>{entries.forEach(entry=>{if(!entry.isIntersecting)return;links.forEach(link=>{link.style.color=link.getAttribute('href')==='#'+entry.target.id?'var(--terracotta)':''})})},{rootMargin:'-35% 0px -55% 0px',threshold:0});
 sections.forEach(s=>observer.observe(s));
@@ -66,30 +121,73 @@ cards.forEach(card=>{const title=card.querySelector('h3')?.textContent.trim();co
 
 // Botones copiar
 const copyButtons=document.querySelectorAll('[data-copy]');
-copyButtons.forEach(btn=>btn.addEventListener('click',async()=>{try{await navigator.clipboard.writeText(btn.dataset.copy);const old=btn.textContent;btn.textContent='Copiado ✓';btn.classList.add('copied');setTimeout(()=>{btn.textContent=old;btn.classList.remove('copied')},1300)}catch(e){btn.textContent=btn.dataset.copy}}));
+copyButtons.forEach(btn=>btn.addEventListener('click',async()=>{
+  try{
+    await navigator.clipboard.writeText(btn.dataset.copy);
+    const old=btn.textContent;
+    btn.textContent='Copiado ✓';
+    btn.classList.add('copied');
+    setTimeout(()=>{btn.textContent=old;btn.classList.remove('copied')},1300);
+  }catch(e){
+    btn.textContent=btn.dataset.copy;
+  }
+}));
 
 // “Ahora toca”: antes del viaje muestra cuenta atrás; durante el viaje, la siguiente parada.
 const schedule=[
-  {at:'2026-10-10T00:55:00+02:00',title:'Llegada a Fiumicino',text:'Taxi oficial o Uber Black directo al alojamiento.',dest:'Fiumicino Airport, Italy'},
-  {at:'2026-10-10T09:35:00+02:00',title:'Punto de encuentro del Vaticano',text:'Via Candia, 131 · la visita empieza a las 10:00.',dest:'Via Candia 131, Roma, Italy'},
-  {at:'2026-10-10T14:00:00+02:00',title:'Basílica de San Pedro',text:'Después del Vaticano: Piedad, baldaquino y la gran nave.',dest:'Basilica di San Pietro, Vatican City'},
-  {at:'2026-10-10T15:45:00+02:00',title:'Castel Sant’Angelo',text:'Paseo exterior por Via della Conciliazione y el puente.',dest:'Castel Sant Angelo, Roma, Italy'},
-  {at:'2026-10-10T16:50:00+02:00',title:'Pincio y Piazza del Popolo',text:'Atardecer y bajada al punto de encuentro del free tour.',dest:'Terrazza del Pincio, Roma, Italy'},
-  {at:'2026-10-10T17:40:00+02:00',title:'Free tour nocturno',text:'Nos acercamos a Santa Maria del Popolo. Empieza a las 18:00.',dest:'Basilica di Santa Maria del Popolo, Roma, Italy'},
-  {at:'2026-10-11T10:00:00+02:00',title:'San Pietro in Vincoli',text:'Primera parada: el Moisés de Miguel Ángel.',dest:'San Pietro in Vincoli, Roma, Italy'},
-  {at:'2026-10-11T11:30:00+02:00',title:'Punto de encuentro del Coliseo',text:'Via dei Fori Imperiali, 1 · la visita empieza a las 12:00.',dest:'Via dei Fori Imperiali 1, Roma, Italy'},
-  {at:'2026-10-11T15:45:00+02:00',title:'Piazza Venezia y Campidoglio',text:'Empieza el paseo a pie por el centro histórico.',dest:'Piazza Venezia, Roma, Italy'},
-  {at:'2026-10-11T17:40:00+02:00',title:'Punto de encuentro del Panteón',text:'Via del Pozzo delle Cornacchie, 56 · entrada a las 18:00.',dest:'Via del Pozzo delle Cornacchie 56, Roma, Italy'},
-  {at:'2026-10-11T18:45:00+02:00',title:'Navona → Trastevere',text:'Piazza Navona, Campo de’ Fiori, Ponte Sisto y cena.',dest:'Piazza Navona, Roma, Italy'},
-  {at:'2026-10-12T07:00:00+02:00',title:'Cúpula de San Pedro',text:'Roma despertando desde arriba.',dest:'Basilica di San Pietro, Vatican City'},
-  {at:'2026-10-12T10:00:00+02:00',title:'Checkout y locker',text:'Maletas hacia Via Filippo Turati, 52, junto a Termini.',dest:'Via Filippo Turati 52, Roma, Italy'},
-  {at:'2026-10-12T10:40:00+02:00',title:'Santa Maria Maggiore',text:'Comienza nuestro último paseo por Roma.',dest:'Basilica di Santa Maria Maggiore, Roma, Italy'},
-  {at:'2026-10-12T11:35:00+02:00',title:'Santa Maria della Vittoria',text:'Bernini y el Éxtasis de Santa Teresa.',dest:'Santa Maria della Vittoria, Roma, Italy'},
-  {at:'2026-10-12T12:30:00+02:00',title:'Trevi y Piazza di Spagna',text:'Últimas postales y la moneda para volver.',dest:'Fontana di Trevi, Roma, Italy'},
-  {at:'2026-10-12T14:15:00+02:00',title:'Recoger maletas y Terravision',text:'Volvemos a Via Giolitti. Objetivo: bus sobre las 14:30.',dest:'Via Giovanni Giolitti 38, Roma, Italy'},
-  {at:'2026-10-12T16:10:00+02:00',title:'Fiumicino',text:'Ya deberíamos estar en el aeropuerto. Vuelo a las 17:40.',dest:'Fiumicino Airport, Italy'}
+  {at:'2026-10-10T00:55:00+02:00',lead:0,title:'Llegada a Fiumicino',text:'Taxi oficial o Uber Black directo al alojamiento.',dest:'Fiumicino Airport, Italy'},
+  {at:'2026-10-10T09:35:00+02:00',lead:25,title:'Punto de encuentro del Vaticano',text:'Via Candia, 131 · la visita empieza a las 10:00.',dest:'Via Candia 131, Roma, Italy'},
+  {at:'2026-10-10T14:00:00+02:00',lead:15,title:'Basílica de San Pedro',text:'Después del Vaticano: Piedad, baldaquino y la gran nave.',dest:'Basilica di San Pietro, Vatican City'},
+  {at:'2026-10-10T15:45:00+02:00',lead:10,title:'Castel Sant’Angelo',text:'Paseo exterior por Via della Conciliazione y el puente.',dest:'Castel Sant Angelo, Roma, Italy'},
+  {at:'2026-10-10T16:50:00+02:00',lead:20,title:'Pincio y Piazza del Popolo',text:'Atardecer y bajada al punto de encuentro del free tour.',dest:'Terrazza del Pincio, Roma, Italy'},
+  {at:'2026-10-10T17:40:00+02:00',lead:15,title:'Free tour nocturno',text:'Nos acercamos a Santa Maria del Popolo. Empieza a las 18:00.',dest:'Basilica di Santa Maria del Popolo, Roma, Italy'},
+  {at:'2026-10-11T10:00:00+02:00',lead:30,title:'San Pietro in Vincoli',text:'Primera parada: el Moisés de Miguel Ángel.',dest:'San Pietro in Vincoli, Roma, Italy'},
+  {at:'2026-10-11T11:30:00+02:00',lead:20,title:'Punto de encuentro del Coliseo',text:'Via dei Fori Imperiali, 1 · la visita empieza a las 12:00.',dest:'Via dei Fori Imperiali 1, Roma, Italy'},
+  {at:'2026-10-11T15:45:00+02:00',lead:10,title:'Piazza Venezia y Campidoglio',text:'Empieza el paseo a pie por el centro histórico.',dest:'Piazza Venezia, Roma, Italy'},
+  {at:'2026-10-11T17:40:00+02:00',lead:20,title:'Punto de encuentro del Panteón',text:'Via del Pozzo delle Cornacchie, 56 · entrada a las 18:00.',dest:'Via del Pozzo delle Cornacchie 56, Roma, Italy'},
+  {at:'2026-10-11T18:45:00+02:00',lead:5,title:'Navona → Trastevere',text:'Piazza Navona, Campo de’ Fiori, Ponte Sisto y cena.',dest:'Piazza Navona, Roma, Italy'},
+  {at:'2026-10-12T07:00:00+02:00',lead:20,title:'Cúpula de San Pedro',text:'Roma despertando desde arriba.',dest:'Basilica di San Pietro, Vatican City'},
+  {at:'2026-10-12T10:00:00+02:00',lead:10,title:'Checkout y locker',text:'Maletas hacia Via Filippo Turati, 52, junto a Termini.',dest:'Via Filippo Turati 52, Roma, Italy'},
+  {at:'2026-10-12T10:40:00+02:00',lead:10,title:'Santa Maria Maggiore',text:'Comienza nuestro último paseo por Roma.',dest:'Basilica di Santa Maria Maggiore, Roma, Italy'},
+  {at:'2026-10-12T11:35:00+02:00',lead:15,title:'Santa Maria della Vittoria',text:'Bernini y el Éxtasis de Santa Teresa.',dest:'Santa Maria della Vittoria, Roma, Italy'},
+  {at:'2026-10-12T12:30:00+02:00',lead:15,title:'Trevi y Piazza di Spagna',text:'Últimas postales y la moneda para volver.',dest:'Fontana di Trevi, Roma, Italy'},
+  {at:'2026-10-12T14:15:00+02:00',lead:20,title:'Recoger maletas y Terravision',text:'Volvemos a Via Giolitti. Objetivo: bus sobre las 14:30.',dest:'Via Giovanni Giolitti 38, Roma, Italy'},
+  {at:'2026-10-12T16:10:00+02:00',lead:0,title:'Fiumicino',text:'Ya deberíamos estar en el aeropuerto. Vuelo a las 17:40.',dest:'Fiumicino Airport, Italy'}
 ].map(x=>({...x,date:new Date(x.at)}));
-function updateNow(){const title=document.querySelector('#now-title'),text=document.querySelector('#now-text'),map=document.querySelector('#now-map');if(!title||!text||!map)return;const now=new Date();const start=schedule[0].date;const end=new Date('2026-10-12T19:30:00+02:00');if(now<start){const diff=start-now;const days=Math.ceil(diff/86400000);title.textContent=days>1?`Faltan ${days} días para Roma`:'Mañana empieza Roma';text.textContent='Hasta entonces, podemos usar esta web para repasar la ruta y guardar nuestros lugares.';map.href='#ruta';map.textContent='Ver itinerario';return}if(now>end){title.textContent='Roma ya forma parte de nosotros ♡';text.textContent='La guía se queda aquí para recordar el primer viaje juntos… y para preparar la próxima vuelta.';map.href='#momentos';map.textContent='Nuestros momentos';return}let next=schedule.find(item=>item.date>now);if(!next)next=schedule[schedule.length-1];const mins=Math.max(0,Math.round((next.date-now)/60000));const when=mins<60?`en ${mins} min`:mins<180?`en ${Math.floor(mins/60)} h ${mins%60} min`:'después';title.textContent=`Ahora toca: ${next.title}`;text.textContent=`${next.text} · ${when}`;map.href=mapsDir(next.dest);map.target='_blank';map.rel='noopener';map.textContent='Cómo llegar'}
+function formatCountdown(ms){
+  const mins=Math.max(0,Math.round(ms/60000));
+  if(mins<60)return `${mins} min`;
+  if(mins<180)return `${Math.floor(mins/60)} h ${mins%60} min`;
+  return `${Math.floor(mins/60)} h`;
+}
+function updateNow(){
+  const title=document.querySelector('#now-title'),text=document.querySelector('#now-text'),map=document.querySelector('#now-map');
+  if(!title||!text||!map)return;
+  const now=new Date();
+  const start=schedule[0].date;
+  const end=new Date('2026-10-12T19:30:00+02:00');
+  if(now<start){
+    const days=Math.ceil((start-now)/86400000);
+    title.textContent=days>1?`Faltan ${days} días para Roma`:'Mañana empieza Roma';
+    text.textContent='Hasta entonces, podemos usar esta web para repasar la ruta y guardar nuestros lugares.';
+    map.href='#ruta';map.removeAttribute('target');map.removeAttribute('rel');map.textContent='Ver itinerario';return;
+  }
+  if(now>end){
+    title.textContent='Roma ya forma parte de nosotros ♡';
+    text.textContent='La guía se queda aquí para recordar el primer viaje juntos… y para preparar la próxima vuelta.';
+    map.href='#momentos';map.removeAttribute('target');map.removeAttribute('rel');map.textContent='Nuestros momentos';return;
+  }
+  let next=schedule.find(item=>item.date>now);
+  if(!next)next=schedule[schedule.length-1];
+  const leaveTime=new Date(next.date.getTime()-(next.lead||0)*60000);
+  let timing='';
+  if(next.lead&&now<leaveTime) timing=`Salir en ${formatCountdown(leaveTime-now)}`;
+  else if(next.lead&&now<next.date) timing=`Ya conviene salir · faltan ${formatCountdown(next.date-now)}`;
+  else timing=`Toca en ${formatCountdown(next.date-now)}`;
+  title.textContent='Hoy, Roma con mi Rayito ☀️';
+  text.textContent=`Próxima parada: ${next.title} · ${timing}. ${next.text}`;
+  map.href=mapsDir(next.dest);map.target='_blank';map.rel='noopener';map.textContent='Cómo llegar';
+}
 updateNow();setInterval(updateNow,60000);
 
 // Offline básico en GitHub Pages
