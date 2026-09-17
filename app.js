@@ -3,6 +3,44 @@ const navLinks=document.querySelector('.nav-links');
 menuBtn?.addEventListener('click',()=>{const open=navLinks.classList.toggle('open');menuBtn.setAttribute('aria-expanded',String(open))});
 navLinks?.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{navLinks.classList.remove('open');menuBtn?.setAttribute('aria-expanded','false')}));
 
+
+// V3.1 · Modo día / noche
+const themeToggle=document.querySelector('#theme-toggle');
+const themeIcon=document.querySelector('#theme-icon');
+const themeLabel=document.querySelector('#theme-label');
+const themeMeta=document.querySelector('meta[name="theme-color"]');
+const themeKey='roma-rayito-theme-v31';
+const themeOrder=['auto','day','night'];
+
+function autoTheme(){
+  const hour=new Date().getHours();
+  return (hour>=18||hour<7)?'night':'day';
+}
+function applyTheme(pref,save=false){
+  const applied=pref==='auto'?autoTheme():pref;
+  document.documentElement.dataset.theme=applied;
+  document.documentElement.dataset.themePref=pref;
+  if(save){try{localStorage.setItem(themeKey,pref)}catch(e){}}
+  if(themeIcon)themeIcon.textContent=pref==='day'?'☀️':pref==='night'?'🌙':(applied==='night'?'🌙':'☀️');
+  if(themeLabel)themeLabel.textContent=pref==='auto'?'Auto':pref==='day'?'Día':'Noche';
+  if(themeToggle){
+    const desc=pref==='auto'?`Automático · ahora ${applied==='night'?'noche':'día'}`:`Tema ${pref==='night'?'noche':'día'}`;
+    themeToggle.title=`${desc}. Pulsa para cambiar`;
+    themeToggle.setAttribute('aria-label',`${desc}. Pulsa para cambiar`);
+  }
+  if(themeMeta)themeMeta.setAttribute('content',applied==='night'?'#191a17':'#f4efe7');
+}
+let themePref='auto';
+try{themePref=localStorage.getItem(themeKey)||'auto'}catch(e){}
+applyTheme(themePref);
+themeToggle?.addEventListener('click',()=>{
+  const idx=themeOrder.indexOf(themePref);
+  themePref=themeOrder[(idx+1)%themeOrder.length];
+  applyTheme(themePref,true);
+});
+setInterval(()=>{if(themePref==='auto')applyTheme('auto')},60000);
+
+
 // Filtro del itinerario por día
 const dayTabs=document.querySelectorAll('.day-tab');
 const dayBlocks=document.querySelectorAll('.day-block');
@@ -39,37 +77,73 @@ try{const saved=JSON.parse(localStorage.getItem(storageKey)||'{}');memoryInputs.
 memoryInputs.forEach(input=>input.addEventListener('change',()=>{const data={};memoryInputs.forEach(i=>data[i.dataset.memory]=i.checked);try{localStorage.setItem(storageKey,JSON.stringify(data))}catch(e){}savedNote?.classList.add('show');setTimeout(()=>savedNote?.classList.remove('show'),1500)}));
 
 
-// Diario privado del viaje: solo localStorage del navegador
+// Diario privado + “Momento Rayito”: un único dato por día, guardado solo en este navegador.
 const journalAreas=document.querySelectorAll('[data-journal]');
+const rayitoInputs=document.querySelectorAll('[data-rayito]');
+const rayitoDetails=document.querySelectorAll('[data-rayito-details]');
 const journalKey='roma-rayito-journal-v1';
 const journalStatus=document.querySelector('#journal-status');
-try{
-  const savedJournal=JSON.parse(localStorage.getItem(journalKey)||'{}');
-  journalAreas.forEach(area=>area.value=savedJournal[area.dataset.journal]||'');
-}catch(e){}
+let journalData={};
+
+try{journalData=JSON.parse(localStorage.getItem(journalKey)||'{}')}catch(e){journalData={}}
+
+function syncJournalFields(day,value,origin=null){
+  journalAreas.forEach(area=>{if(area.dataset.journal===day&&area!==origin)area.value=value});
+  rayitoInputs.forEach(input=>{if(input.dataset.rayito===day&&input!==origin)input.value=value});
+}
+['d10','d11','d12'].forEach(day=>syncJournalFields(day,journalData[day]||''));
+
 let journalTimer;
-journalAreas.forEach(area=>area.addEventListener('input',()=>{
+function saveJournal(day,value,origin){
+  journalData[day]=value;
+  syncJournalFields(day,value,origin);
   clearTimeout(journalTimer);
   journalTimer=setTimeout(()=>{
-    const data={};
-    journalAreas.forEach(a=>data[a.dataset.journal]=a.value);
     try{
-      localStorage.setItem(journalKey,JSON.stringify(data));
+      localStorage.setItem(journalKey,JSON.stringify(journalData));
       if(journalStatus){
         journalStatus.textContent='Guardado local ✓';
         setTimeout(()=>journalStatus.textContent='Guardado local automáticamente',1200);
       }
+      const status=document.querySelector(`[data-rayito-status="${day}"]`);
+      if(status){
+        status.textContent='Guardado ✓';
+        status.classList.add('saved');
+        setTimeout(()=>{
+          status.textContent='Se guarda solo en este dispositivo';
+          status.classList.remove('saved');
+        },1400);
+      }
     }catch(e){
-      if(journalStatus) journalStatus.textContent='No se ha podido guardar en este navegador';
+      if(journalStatus)journalStatus.textContent='No se ha podido guardar en este navegador';
     }
   },250);
-}));
+}
+
+journalAreas.forEach(area=>area.addEventListener('input',()=>saveJournal(area.dataset.journal,area.value,area)));
+rayitoInputs.forEach(input=>input.addEventListener('input',()=>saveJournal(input.dataset.rayito,input.value,input)));
+
+function updateRayitoPrompts(){
+  const now=new Date();
+  rayitoDetails.forEach(details=>{
+    const reveal=new Date(details.dataset.reveal);
+    const day=details.dataset.rayitoDetails;
+    const hasText=Boolean((journalData[day]||'').trim());
+    const ready=now>=reveal;
+    details.classList.toggle('is-ready',ready);
+    if(ready&&!hasText&&!details.dataset.autoOpened){
+      details.open=true;
+      details.dataset.autoOpened='1';
+    }
+  });
+}
+updateRayitoPrompts();
+setInterval(updateRayitoPrompts,60000);
+
 document.querySelector('#copy-memories')?.addEventListener('click',async e=>{
   const checked=[...memoryInputs].filter(i=>i.checked).map(i=>'• '+i.parentElement.innerText.trim());
-  const notes=[...journalAreas].map(a=>{
-    const labels={d10:'Sábado 10',d11:'Domingo 11',d12:'Lunes 12'};
-    return `${labels[a.dataset.journal]}: ${a.value.trim()||'—'}`;
-  });
+  const labels={d10:'Sábado 10',d11:'Domingo 11',d12:'Lunes 12'};
+  const notes=['d10','d11','d12'].map(day=>`${labels[day]}: ${(journalData[day]||'').trim()||'—'}`);
   const text=`ROMA CONTIGO, RAYITO ♡\n\nMomentos marcados:\n${checked.length?checked.join('\n'):'—'}\n\nNuestro diario:\n${notes.join('\n\n')}`;
   const btn=e.currentTarget;
   try{

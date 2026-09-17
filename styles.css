@@ -126,3 +126,127 @@
   .journal-head .mini-btn{width:100%}
   .journal-status{align-items:flex-start;flex-direction:column}
 }
+
+
+/* =========================================================
+   V3.1 · Modo día/noche + Momento Rayito integrado
+   ========================================================= */
+
+html{color-scheme:light}
+html[data-theme="night"]{
+  color-scheme:dark;
+  --bg:#191a17;
+  --paper:#23241f;
+  --ink:#f2eee7;
+  --muted:#aaa89f;
+  --terracotta:#c47b61;
+  --olive:#9ba88e;
+  --wine:#d1a0a6;
+  --gold:#c9a66d;
+  --line:#3b3c35;
+  --shadow:0 14px 38px rgba(0,0,0,.22);
+}
+body,.site-header,.day-block,.place-card,.utility-card,.food-zone-card,.safety-card,
+.phrase-card,.memory-card,.journal-card,.now-card,.nav-links,.search,.planb-card,.offline-note{
+  transition:background-color .25s ease,color .25s ease,border-color .25s ease,box-shadow .25s ease;
+}
+
+.theme-toggle{
+  min-height:34px;border:1px solid var(--line);border-radius:999px;padding:0 11px;
+  display:inline-flex;align-items:center;justify-content:center;gap:6px;
+  background:rgba(255,255,255,.18);color:var(--muted);
+  font-size:11px;font-weight:700;cursor:pointer;white-space:nowrap;
+}
+.theme-toggle:hover{color:var(--terracotta);border-color:var(--terracotta)}
+.theme-toggle #theme-icon{font-size:13px;line-height:1}
+html[data-theme="night"] .theme-toggle{background:rgba(255,255,255,.04)}
+
+html[data-theme="night"] body::before{
+  opacity:.18;background-image:radial-gradient(rgba(235,226,211,.10) .65px,transparent .65px);
+}
+html[data-theme="night"] .site-header{
+  background:rgba(25,26,23,.88);border-bottom-color:rgba(255,255,255,.08);
+}
+html[data-theme="night"] .btn.ghost,
+html[data-theme="night"] .day-tab,
+html[data-theme="night"] .chip,
+html[data-theme="night"] .food-tab,
+html[data-theme="night"] .offline-note{background:rgba(255,255,255,.04)}
+html[data-theme="night"] .hero-art{
+  background:linear-gradient(180deg,#34352f 0%,#2b2c27 58%,#4a4034 59%,#5c4938 100%);
+}
+html[data-theme="night"] .sun{background:#c5a361;opacity:.66}
+html[data-theme="night"] .dome,
+html[data-theme="night"] .arches,
+html[data-theme="night"] .arches span{border-color:rgba(239,231,217,.64)}
+html[data-theme="night"] .dome::before{background:rgba(239,231,217,.64)}
+html[data-theme="night"] .dome::after{color:rgba(239,231,217,.64)}
+html[data-theme="night"] .monument-section{background:#1e1f1b;border-color:#30312c}
+html[data-theme="night"] .place-card.feature{background:#292923}
+html[data-theme="night"] .place-number{color:rgba(255,255,255,.07)}
+html[data-theme="night"] .memory-list label{background:#292a25}
+html[data-theme="night"] .now-card{background:linear-gradient(125deg,#252620 0%,#302b24 100%)}
+html[data-theme="night"] .now-icon{background:#554a31;color:#e0c485}
+html[data-theme="night"] .utility-card.important{background:#30271f}
+html[data-theme="night"] .food-emoji{background:#383128}
+html[data-theme="night"] .planb-card{background:#292822}
+html[data-theme="night"] .planb-card>span{background:#3a342a}
+html[data-theme="night"] .safety-card.emergency{background:#332622;border-color:#543a31}
+html[data-theme="night"] .journal-card{background:#282721}
+html[data-theme="night"] .curiosity-section{background:#11120f;color:#f2eee7}
+html[data-theme="night"] .curiosity-section .section-head>p,
+html[data-theme="night"] .curiosity-grid p{color:#c8c4bb}
+html[data-theme="night"] .food-help,
+html[data-theme="night"] .food-strip{background:#11120f;color:#f2eee7}
+html[data-theme="night"] .food-help small,
+html[data-theme="night"] .food-links span{color:#c8c4bb}
+html[data-theme="night"] .search input,
+html[data-theme="night"] .journal-grid textarea{color:var(--ink)}
+html[data-theme="night"] .italy-line i:nth-child(2){background:#d7d0c4}
+
+/* Momento Rayito */
+.route-memory{margin-top:16px;border-top:1px solid var(--line);padding-top:14px}
+.route-memory summary{
+  list-style:none;cursor:pointer;width:max-content;max-width:100%;
+  color:var(--wine);font-family:"DM Serif Display",Georgia,serif;
+  font-size:15px;font-style:italic;
+}
+.route-memory summary::-webkit-details-marker{display:none}
+.route-memory summary span{
+  display:inline-grid;place-items:center;width:24px;height:24px;margin-right:4px;
+  border:1px solid rgba(155,91,69,.30);border-radius:50%;
+  color:var(--terracotta);font-family:"DM Sans",sans-serif;font-style:normal;
+}
+.route-memory[open] summary{margin-bottom:12px}
+.route-memory.is-ready summary::after{
+  content:" · ahora";font-family:"DM Sans",sans-serif;font-size:9px;font-style:normal;
+  font-weight:800;letter-spacing:.11em;text-transform:uppercase;color:var(--terracotta);
+}
+.route-memory-inner{border-left:2px solid var(--gold);padding:4px 0 4px 14px}
+.route-memory-inner>label{display:block;font-size:12px;font-weight:700;color:var(--ink);margin-bottom:8px}
+.route-memory-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;align-items:center}
+.route-memory-row input{
+  min-width:0;width:100%;height:40px;border:1px solid var(--line);border-radius:12px;
+  padding:0 12px;outline:0;background:var(--bg);color:var(--ink);font-size:12px;
+}
+.route-memory-row input:focus{border-color:var(--terracotta);box-shadow:0 0 0 3px rgba(155,91,69,.08)}
+.route-memory-row small{color:var(--muted);font-size:9px;white-space:nowrap}
+.route-memory-row small.saved{color:var(--olive);font-weight:800}
+html[data-theme="night"] .route-memory summary span{border-color:rgba(196,123,97,.42)}
+html[data-theme="night"] .route-memory-row input{background:#1b1c18}
+
+@media (max-width:900px){
+  .nav-links{gap:16px}
+  .theme-toggle{margin-left:2px}
+}
+@media (max-width:680px){
+  .theme-toggle{width:100%;min-height:42px;margin:6px 0 2px;background:var(--bg)}
+  .route-memory-row{grid-template-columns:1fr}
+  .route-memory-row small{white-space:normal}
+}
+@media (prefers-reduced-motion:reduce){
+  body,.site-header,.day-block,.place-card,.utility-card,.food-zone-card,.safety-card,
+  .phrase-card,.memory-card,.journal-card,.now-card,.nav-links,.search,.planb-card,.offline-note{
+    transition:none!important;
+  }
+}

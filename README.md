@@ -1,24 +1,30 @@
-# Roma contigo, Rayito · v3
+# Roma contigo, Rayito · v3.1
 
-Web responsive para el viaje a Roma del 10 al 12 de octubre de 2026.
+Actualización conservadora de la V3. Mantiene su diseño, estructura y filosofía, y añade únicamente las dos funciones elegidas.
 
-## Novedades v3
-- **Comer cerca de aquí**: 4 zonas y 12 opciones de comida/café/gelato con Google Maps.
-- **Plan B** para lluvia, retrasos, cansancio y protección de las reservas importantes.
-- **Emergencias y transporte**: 112, Consulado de España, taxi oficial, farmacias de guardia y mapas nocturnos ATAC.
-- **Italiano de bolsillo**: 15 frases con botón para copiar.
-- **Roma, tú y yo**: una nota por día guardada exclusivamente en `localStorage`.
-- Botón para copiar todos los recuerdos del viaje.
-- El modo **Ahora toca** muestra “Hoy, Roma con mi Rayito” y calcula cuándo conviene salir.
-- Service Worker actualizado a `roma-rayito-v3`.
+## Modo día / noche
+- Automático por defecto:
+  - Día: 07:00–17:59.
+  - Noche: 18:00–06:59.
+- Selector manual en el menú: **Auto → Día → Noche**.
+- La elección queda guardada en el navegador.
+- El tema oscuro mantiene tonos cálidos y apagados, sin negro puro.
+
+## “Momento Rayito” dentro del itinerario
+Cada jornada termina con un discreto **♡ Momento Rayito** de una sola frase.
+
+Se abre automáticamente si está vacío al terminar aproximadamente la jornada:
+- Sábado 10: 20:00.
+- Domingo 11: 21:00.
+- Lunes 12: 14:15.
+
+También se puede abrir manualmente en cualquier momento.
+
+El texto está sincronizado con el diario **“Roma, tú y yo”** de la parte final de la web. Si escribes en uno, aparece en el otro.
 
 ## Privacidad
-No se han incluido entradas, QR, PDF ni documentación privada.  
-Las notas y checks que se escriben en la web se guardan solo en el navegador del dispositivo mediante `localStorage`; el código no las envía a GitHub ni a ningún servidor.
+Tema, checks y recuerdos se guardan únicamente en `localStorage` del navegador. No se suben a GitHub ni a ningún servidor.
 
-## Despliegue en GitHub Pages
-Sustituye en la raíz del repositorio los archivos por los de esta carpeta y haz un commit. GitHub Pages publicará la actualización automáticamente.
-
-Si el móvil conserva la versión anterior, recarga la página una vez con conexión para que se active el Service Worker v3.
-
-Archivos: `index.html`, `styles.css`, `app.js`, `manifest.webmanifest`, `sw.js`, `icon.svg`.
+## Actualizar GitHub Pages
+Sustituye los archivos de la raíz del repositorio por estos y haz un commit.  
+El Service Worker usa la caché `roma-rayito-v31`, así que después de publicar conviene abrir la web con conexión y recargarla una vez.
