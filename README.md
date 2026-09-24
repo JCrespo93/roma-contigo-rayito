@@ -1,35 +1,31 @@
-# Roma contigo, Rayito · v3.2
+# Roma contigo, Rayito · v3.4
 
-La V3.2 mantiene exactamente la base visual y funcional de la V3.1 y reorganiza el final del domingo 11 para incorporar tres nuevas paradas.
+La V3.4 mantiene la V3.3 e incorpora una sección nueva de **Transporte**, además de actualizar la reserva real del locker.
 
-## Nuevas paradas del domingo
-- **19:05 · Pompi Piazza Navona**
-  - Tiramisú.
-  - Via di Tor Millina, 33.
-- **19:50 · Da Tony, Trastevere**
-  - Referencia usada en la guía: La Tavernetta 29 da Tony e Andrea.
-  - Via della Pelliccia, 29A.
-  - Si hay demasiada cola, se protege la llegada a Trilussa.
-- **21:00 · Piazza Trilussa**
-  - Franja reservada para disfrutar del ambiente y de artistas callejeros.
-- Después: paseo opcional por **Santa Maria in Trastevere**.
+## Transporte desde el alojamiento
+### Sábado 10
+Alojamiento → Via Candia, 131: a pie como opción principal; bus 23 como alternativa.
 
-## Cambios relacionados
-- Las tres paradas aparecen en el itinerario del domingo.
-- Se han añadido al sistema **“Ahora toca”**.
-- Tienen enlaces directos a Google Maps.
-- Pompi y Da Tony aparecen destacados como **EN RUTA** en la sección gastronómica.
-- Piazza Trilussa tiene ahora su propia ficha de lectura ligera.
-- Se añade un Plan B específico si hay cola en Da Tony.
-- El “Momento Rayito” del domingo pasa de las 21:00 a las **22:15** para no interrumpir Piazza Trilussa.
-- Caché offline actualizada a `roma-rayito-v32`.
+### Domingo 11
+Alojamiento → San Pietro in Vincoli:
+- Cavalleggeri/S. Pietro
+- bus 64 a Termini
+- Metro B dirección Laurentina
+- bajar en Cavour
 
-## Se conserva de la V3.1
-- Modo Auto / Día / Noche.
-- Diario y “Momento Rayito”.
-- Información práctica, Plan B, italiano, restaurantes y funcionamiento offline.
-- Ningún PDF, QR o entrada privada se publica.
+### Lunes 12
+Alojamiento → locker:
+- checkout 10:00
+- bus 64 a Termini
+- Stow Your Bags, Via Filippo Turati 52
+- reserva 10:45–15:45
+- recogida prevista sobre 14:10
+- Terravision alrededor de 14:30 desde Via Giovanni Giolitti
 
-## GitHub Pages
-Sustituye los archivos de la raíz del repositorio por los de esta carpeta y haz un commit.
-Después, abre la web una vez con conexión y recarga para activar la nueva caché V3.2.
+## Tarifas incluidas
+BIT 1,50 € / 100 min · 24H 8,50 € · 48H 15 € · 72H 22 €.
+
+También se explica Tap & Go y se añaden enlaces directos a Google Maps y ATAC.
+
+## Offline
+Caché actualizada a `roma-rayito-v34`.

@@ -156,7 +156,7 @@ document.querySelector('#copy-memories')?.addEventListener('click',async e=>{
 
 
 // Navegación activa
-const sections=['ahora','ruta','lugares','comer','util','italiano','curiosidades','momentos'].map(id=>document.getElementById(id)).filter(Boolean);
+const sections=['ahora','ruta','transporte','tiempo','lugares','comer','util','italiano','curiosidades','momentos'].map(id=>document.getElementById(id)).filter(Boolean);
 const links=[...document.querySelectorAll('.nav-links a')];
 const observer=new IntersectionObserver(entries=>{entries.forEach(entry=>{if(!entry.isIntersecting)return;links.forEach(link=>{link.style.color=link.getAttribute('href')==='#'+entry.target.id?'var(--terracotta)':''})})},{rootMargin:'-35% 0px -55% 0px',threshold:0});
 sections.forEach(s=>observer.observe(s));
@@ -230,11 +230,13 @@ const schedule=[
   {at:'2026-10-11T21:00:00+02:00',lead:10,title:'Piazza Trilussa',text:'Hora objetivo para sentarnos un rato y disfrutar del ambiente y los artistas callejeros.',dest:'Piazza Trilussa, Roma, Italy'},
   {at:'2026-10-11T21:45:00+02:00',lead:5,title:'Santa Maria in Trastevere',text:'Paseo final opcional por el corazón del barrio.',dest:'Basilica di Santa Maria in Trastevere, Roma, Italy'},
   {at:'2026-10-12T07:00:00+02:00',lead:20,title:'Cúpula de San Pedro',text:'Roma despertando desde arriba.',dest:'Basilica di San Pietro, Vatican City'},
-  {at:'2026-10-12T10:00:00+02:00',lead:10,title:'Checkout y locker',text:'Maletas hacia Via Filippo Turati, 52, junto a Termini.',dest:'Via Filippo Turati 52, Roma, Italy'},
-  {at:'2026-10-12T10:40:00+02:00',lead:10,title:'Santa Maria Maggiore',text:'Comienza nuestro último paseo por Roma.',dest:'Basilica di Santa Maria Maggiore, Roma, Italy'},
-  {at:'2026-10-12T11:35:00+02:00',lead:15,title:'Santa Maria della Vittoria',text:'Bernini y el Éxtasis de Santa Teresa.',dest:'Santa Maria della Vittoria, Roma, Italy'},
+  {at:'2026-10-12T10:00:00+02:00',lead:0,title:'Checkout y bus 64',text:'Salimos con las maletas hacia Cavalleggeri/S. Pietro para ir a Termini.',dest:'Cavalleggeri/S. Pietro, Roma, Italy'},
+  {at:'2026-10-12T10:45:00+02:00',lead:10,title:'Locker reservado',text:'Stow Your Bags · Via Filippo Turati, 52. Reserva 10:45–15:45.',dest:'Via Filippo Turati 52, Roma, Italy'},
+  {at:'2026-10-12T11:00:00+02:00',lead:5,title:'Santa Maria Maggiore',text:'Comienza nuestro último paseo por Roma.',dest:'Basilica di Santa Maria Maggiore, Roma, Italy'},
+  {at:'2026-10-12T11:40:00+02:00',lead:10,title:'Santa Maria della Vittoria',text:'Bernini y el Éxtasis de Santa Teresa.',dest:'Santa Maria della Vittoria, Roma, Italy'},
   {at:'2026-10-12T12:30:00+02:00',lead:15,title:'Trevi y Piazza di Spagna',text:'Últimas postales y la moneda para volver.',dest:'Fontana di Trevi, Roma, Italy'},
-  {at:'2026-10-12T14:15:00+02:00',lead:20,title:'Recoger maletas y Terravision',text:'Volvemos a Via Giolitti. Objetivo: bus sobre las 14:30.',dest:'Via Giovanni Giolitti 38, Roma, Italy'},
+  {at:'2026-10-12T14:10:00+02:00',lead:15,title:'Recoger maletas',text:'El locker está reservado hasta las 15:45, pero volvemos antes para salir con margen.',dest:'Via Filippo Turati 52, Roma, Italy'},
+  {at:'2026-10-12T14:30:00+02:00',lead:10,title:'Terravision → Fiumicino',text:'Salida desde Via Giolitti. Objetivo: estar en FCO antes de las 16:10.',dest:'Via Giovanni Giolitti 38, Roma, Italy'},
   {at:'2026-10-12T16:10:00+02:00',lead:0,title:'Fiumicino',text:'Ya deberíamos estar en el aeropuerto. Vuelo a las 17:40.',dest:'Fiumicino Airport, Italy'}
 ].map(x=>({...x,date:new Date(x.at)}));
 function formatCountdown(ms){
@@ -274,4 +276,288 @@ function updateNow(){
 updateNow();setInterval(updateNow,60000);
 
 // Offline básico en GitHub Pages
+
+
+// =========================================================
+// V3.3 · Tiempo de Roma + histórico + recomendaciones de ropa
+// Fuente: Open-Meteo. No usa geolocalización del usuario.
+// =========================================================
+const ROME_LAT=41.9028;
+const ROME_LON=12.4964;
+const TRIP_DATES=['2026-10-10','2026-10-11','2026-10-12'];
+const LIVE_WEATHER_CACHE='roma-rayito-weather-live-v33';
+const HISTORY_WEATHER_CACHE='roma-rayito-weather-history-v33';
+const PACKING_CACHE='roma-rayito-packing-v33';
+
+const forecastUrl=`https://api.open-meteo.com/v1/forecast?latitude=${ROME_LAT}&longitude=${ROME_LON}&current=temperature_2m,apparent_temperature,relative_humidity_2m,precipitation,weather_code,wind_speed_10m&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max,precipitation_sum&timezone=Europe%2FRome&forecast_days=16`;
+const historyUrl=`https://archive-api.open-meteo.com/v1/archive?latitude=${ROME_LAT}&longitude=${ROME_LON}&start_date=2016-10-10&end_date=2025-10-12&daily=temperature_2m_max,temperature_2m_min,precipitation_sum&timezone=Europe%2FRome`;
+
+const weatherState={live:null,history:null};
+
+function weatherInfo(code){
+  const c=Number(code);
+  if(c===0)return {icon:'☀',label:'Despejado'};
+  if(c===1)return {icon:'🌤',label:'Mayormente despejado'};
+  if(c===2)return {icon:'⛅',label:'Parcialmente nublado'};
+  if(c===3)return {icon:'☁',label:'Nublado'};
+  if(c===45||c===48)return {icon:'〰',label:'Niebla'};
+  if([51,53,55,56,57].includes(c))return {icon:'🌦',label:'Llovizna'};
+  if([61,63,65,66,67].includes(c))return {icon:'🌧',label:'Lluvia'};
+  if([71,73,75,77].includes(c))return {icon:'❄',label:'Nieve'};
+  if([80,81,82].includes(c))return {icon:'🌦',label:'Chubascos'};
+  if([85,86].includes(c))return {icon:'🌨',label:'Chubascos de nieve'};
+  if([95,96,99].includes(c))return {icon:'⛈',label:'Tormenta'};
+  return {icon:'◌',label:'Tiempo variable'};
+}
+function safeNum(v){return Number.isFinite(Number(v))?Number(v):null}
+function tempText(v){const n=safeNum(v);return n===null?'--°':`${Math.round(n)}°`}
+function oneDecimal(v){const n=safeNum(v);return n===null?'--':n.toFixed(1)}
+function avg(arr){const x=arr.filter(v=>Number.isFinite(v));return x.length?x.reduce((a,b)=>a+b,0)/x.length:null}
+function formatRomeTime(iso){
+  if(!iso)return 'Actualizado recientemente';
+  try{
+    const d=new Date(iso);
+    return `Actualizado ${new Intl.DateTimeFormat('es-ES',{hour:'2-digit',minute:'2-digit',day:'2-digit',month:'short',timeZone:'Europe/Rome'}).format(d)}`;
+  }catch(e){return 'Actualizado recientemente'}
+}
+
+function renderLiveWeather(data,fromCache=false){
+  if(!data||!data.current)return;
+  weatherState.live=data;
+  const c=data.current;
+  const info=weatherInfo(c.weather_code);
+  const symbol=document.querySelector('#weather-symbol');
+  const cond=document.querySelector('#weather-condition');
+  const temp=document.querySelector('#weather-temp');
+  const feels=document.querySelector('#weather-feels');
+  const hum=document.querySelector('#weather-humidity');
+  const wind=document.querySelector('#weather-wind');
+  const rain=document.querySelector('#weather-rain');
+  const updated=document.querySelector('#weather-updated');
+  const status=document.querySelector('#weather-status');
+
+  if(symbol)symbol.textContent=info.icon;
+  if(cond)cond.textContent=info.label;
+  if(temp)temp.textContent=tempText(c.temperature_2m);
+  if(feels)feels.textContent=`Sensación ${tempText(c.apparent_temperature)}`;
+  if(hum)hum.textContent=`${Math.round(safeNum(c.relative_humidity_2m)??0)}%`;
+  if(wind)wind.textContent=`${Math.round(safeNum(c.wind_speed_10m)??0)} km/h`;
+  if(rain)rain.textContent=`${oneDecimal(c.precipitation)} mm`;
+  if(updated)updated.textContent=formatRomeTime(c.time);
+  if(status)status.textContent=fromCache?'Mostrando el último dato guardado mientras actualizamos…':'Datos actualizados · Roma';
+  renderTripForecast(data);
+  renderPackingAdvice();
+}
+
+function renderTripForecast(data){
+  const grid=document.querySelector('#trip-forecast-grid');
+  const badge=document.querySelector('#forecast-badge');
+  const explain=document.querySelector('#forecast-explain');
+  if(!grid||!data?.daily?.time)return;
+
+  const labels={'2026-10-10':'Sáb 10','2026-10-11':'Dom 11','2026-10-12':'Lun 12'};
+  const cards=[];
+  let available=0;
+  const tripForecast=[];
+
+  TRIP_DATES.forEach(date=>{
+    const idx=data.daily.time.indexOf(date);
+    if(idx<0){
+      cards.push(`<div class="trip-day is-loading"><span>${labels[date]}</span><strong>—</strong><small>Aún fuera del horizonte de previsión</small></div>`);
+      return;
+    }
+    available++;
+    const code=data.daily.weather_code?.[idx];
+    const info=weatherInfo(code);
+    const max=safeNum(data.daily.temperature_2m_max?.[idx]);
+    const min=safeNum(data.daily.temperature_2m_min?.[idx]);
+    const pop=safeNum(data.daily.precipitation_probability_max?.[idx]);
+    const rain=safeNum(data.daily.precipitation_sum?.[idx]);
+    tripForecast.push({date,max,min,pop,rain,code});
+    cards.push(`<div class="trip-day is-available"><span>${labels[date]}</span><span class="trip-weather-icon" aria-hidden="true">${info.icon}</span><div><strong>${tempText(max)} / ${tempText(min)}</strong><small>${info.label}${pop!==null?` · lluvia ${Math.round(pop)}%`:''}</small></div></div>`);
+  });
+
+  grid.innerHTML=cards.join('');
+  weatherState.trip=tripForecast;
+  if(badge){
+    badge.classList.toggle('ready',available>0);
+    badge.textContent=available===3?'Previsión disponible':available>0?`${available}/3 días disponibles`:'Aún es pronto';
+  }
+  if(explain){
+    explain.textContent=available===3
+      ?'Ya están disponibles los tres días. Conviene volver a mirar esta sección la víspera: la previsión seguirá afinándose.'
+      :available>0
+        ?'La previsión empieza a alcanzar nuestro viaje, pero todavía faltan días. Las tarjetas restantes aparecerán automáticamente.'
+        :'Todavía no hay previsión meteorológica para el 10–12 de octubre. Mientras tanto, el histórico de abajo es la referencia más útil.';
+  }
+}
+
+async function loadLiveWeather(force=false){
+  const status=document.querySelector('#weather-status');
+  try{
+    const cached=JSON.parse(localStorage.getItem(LIVE_WEATHER_CACHE)||'null');
+    if(cached?.data)renderLiveWeather(cached.data,true);
+  }catch(e){}
+
+  if(status&&force)status.textContent='Actualizando…';
+  try{
+    const res=await fetch(forecastUrl,{cache:'no-store'});
+    if(!res.ok)throw new Error('weather');
+    const data=await res.json();
+    renderLiveWeather(data,false);
+    try{localStorage.setItem(LIVE_WEATHER_CACHE,JSON.stringify({savedAt:Date.now(),data}))}catch(e){}
+  }catch(e){
+    if(status)status.textContent='No se ha podido actualizar. Si había datos guardados, se mantienen.';
+  }
+}
+
+function computeHistory(raw){
+  const d=raw?.daily;
+  if(!d?.time)return null;
+  const rows=[];
+  d.time.forEach((date,i)=>{
+    const md=date.slice(5);
+    if(!['10-10','10-11','10-12'].includes(md))return;
+    const max=safeNum(d.temperature_2m_max?.[i]);
+    const min=safeNum(d.temperature_2m_min?.[i]);
+    const rain=safeNum(d.precipitation_sum?.[i]);
+    if(max===null||min===null)return;
+    rows.push({date,md,max,min,rain:rain??0});
+  });
+  if(!rows.length)return null;
+
+  const byDay={};
+  ['10-10','10-11','10-12'].forEach(md=>{
+    const r=rows.filter(x=>x.md===md);
+    byDay[md]={max:avg(r.map(x=>x.max)),min:avg(r.map(x=>x.min)),rainy:r.filter(x=>x.rain>=1).length,count:r.length};
+  });
+
+  const warm=rows.reduce((a,b)=>b.max>a.max?b:a,rows[0]);
+  const cold=rows.reduce((a,b)=>b.min<a.min?b:a,rows[0]);
+
+  return {
+    rows:rows.length,
+    avgMax:avg(rows.map(x=>x.max)),
+    avgMin:avg(rows.map(x=>x.min)),
+    rainy:rows.filter(x=>x.rain>=1).length,
+    warmest:warm,
+    coldest:cold,
+    byDay
+  };
+}
+
+function renderHistory(summary,fromCache=false){
+  if(!summary)return;
+  weatherState.history=summary;
+  const max=document.querySelector('#history-max');
+  const min=document.querySelector('#history-min');
+  const rainy=document.querySelector('#history-rainy');
+  const extremes=document.querySelector('#history-extremes');
+  const extremesNote=document.querySelector('#history-extremes-note');
+  const days=document.querySelector('#history-days');
+  const status=document.querySelector('#history-status');
+
+  if(max)max.textContent=`${oneDecimal(summary.avgMax)}°`;
+  if(min)min.textContent=`${oneDecimal(summary.avgMin)}°`;
+  if(rainy)rainy.textContent=`${summary.rainy}/${summary.rows}`;
+  if(extremes)extremes.textContent=`${Math.round(summary.warmest.max)}° / ${Math.round(summary.coldest.min)}°`;
+  if(extremesNote)extremesNote.textContent=`más cálida ${summary.warmest.date.slice(0,4)} / más fría ${summary.coldest.date.slice(0,4)}`;
+
+  if(days){
+    const labels={'10-10':'10 OCT','10-11':'11 OCT','10-12':'12 OCT'};
+    days.innerHTML=['10-10','10-11','10-12'].map(md=>{
+      const s=summary.byDay[md];
+      return `<article><span>${labels[md]}</span><strong>${oneDecimal(s.max)}° / ${oneDecimal(s.min)}°</strong><small>máx. / mín. media · lluvia ≥1 mm: ${s.rainy}/${s.count}</small></article>`;
+    }).join('');
+  }
+  if(status)status.textContent=fromCache
+    ?'Histórico cargado desde este dispositivo. Se actualizará de nuevo cuando haya conexión.'
+    :'Histórico 2016–2025 calculado y guardado en este dispositivo.';
+  renderPackingAdvice();
+}
+
+async function loadHistory(){
+  try{
+    const cached=JSON.parse(localStorage.getItem(HISTORY_WEATHER_CACHE)||'null');
+    if(cached?.summary)renderHistory(cached.summary,true);
+  }catch(e){}
+
+  try{
+    const res=await fetch(historyUrl);
+    if(!res.ok)throw new Error('history');
+    const raw=await res.json();
+    const summary=computeHistory(raw);
+    if(!summary)throw new Error('history-empty');
+    renderHistory(summary,false);
+    try{localStorage.setItem(HISTORY_WEATHER_CACHE,JSON.stringify({savedAt:Date.now(),summary}))}catch(e){}
+  }catch(e){
+    const status=document.querySelector('#history-status');
+    if(status&&!weatherState.history)status.textContent='No se ha podido descargar el histórico. Vuelve a abrir esta sección cuando tengas conexión.';
+  }
+}
+
+function renderPackingAdvice(){
+  const title=document.querySelector('#packing-title');
+  const text=document.querySelector('#packing-advice-text');
+  if(!title||!text)return;
+
+  const trip=weatherState.trip||[];
+  const hist=weatherState.history;
+  let maxT=null,minT=null,rainRisk=null,source='histórico';
+
+  if(trip.length){
+    const maxes=trip.map(x=>x.max).filter(Number.isFinite);
+    const mins=trip.map(x=>x.min).filter(Number.isFinite);
+    const pops=trip.map(x=>x.pop).filter(Number.isFinite);
+    if(maxes.length)maxT=Math.max(...maxes);
+    if(mins.length)minT=Math.min(...mins);
+    if(pops.length)rainRisk=Math.max(...pops);
+    source=trip.length===3?'previsión de los tres días':'previsión parcial + histórico';
+  }
+  if(maxT===null&&hist)maxT=hist.avgMax;
+  if(minT===null&&hist)minT=hist.avgMin;
+  if(rainRisk===null&&hist)rainRisk=(hist.rainy/hist.rows)*100;
+
+  if(maxT===null||minT===null){
+    title.textContent='Capas y calzado cómodo';
+    text.textContent='La recomendación se ajustará automáticamente en cuanto cargue el histórico o la previsión del viaje.';
+    return;
+  }
+
+  const parts=[];
+  if(maxT>=24)parts.push('Durante las horas centrales puede sobrar la chaqueta: lleva partes de arriba ligeras');
+  else if(maxT>=20)parts.push('El mediodía debería ser suave, así que funcionan bien camisetas o camisas ligeras');
+  else parts.push('El día puede sentirse fresco: mejor manga larga fina o una capa ligera');
+
+  if(minT<=12)parts.push('para primera hora y noche conviene una chaqueta algo más abrigada');
+  else if(minT<=16)parts.push('para mañana y noche llevaría cárdigan, sudadera fina o chaqueta ligera');
+  else parts.push('por la noche bastará normalmente una capa ligera');
+
+  if(rainRisk>=40)parts.push('y metería sí o sí paraguas compacto o impermeable plegable');
+  else if(rainRisk>=20)parts.push('y mantendría un paraguas compacto en la mochila por si aparece algún chubasco');
+  else parts.push('la lluvia no parece el factor principal, aunque un impermeable fino ocupa poco');
+
+  title.textContent=`Prepararía capas para ${Math.round(minT)}–${Math.round(maxT)} °C`;
+  text.textContent=`Basado en ${source}: ${parts.join('; ')}. Para tantos kilómetros a pie, prioriza calzado cómodo antes que estrenar zapatos.`;
+}
+
+// Checklist de maleta
+const packInputs=document.querySelectorAll('[data-pack]');
+try{
+  const savedPack=JSON.parse(localStorage.getItem(PACKING_CACHE)||'{}');
+  packInputs.forEach(i=>i.checked=Boolean(savedPack[i.dataset.pack]));
+}catch(e){}
+packInputs.forEach(i=>i.addEventListener('change',()=>{
+  const data={};
+  packInputs.forEach(x=>data[x.dataset.pack]=x.checked);
+  try{localStorage.setItem(PACKING_CACHE,JSON.stringify(data))}catch(e){}
+}));
+
+document.querySelector('#weather-refresh')?.addEventListener('click',()=>loadLiveWeather(true));
+
+// Carga inicial y refresco suave cada 15 minutos.
+loadLiveWeather(false);
+loadHistory();
+setInterval(()=>loadLiveWeather(false),15*60*1000);
+
 if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}))}

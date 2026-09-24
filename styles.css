@@ -278,3 +278,234 @@ html[data-theme="night"] .route-memory-row input{background:#1b1c18}
 html[data-theme="night"] .food-spot.food-planned{
   background:rgba(196,123,97,.09);
 }
+
+
+/* =========================================================
+   V3.3 · Tiempo, histórico y maleta
+   ========================================================= */
+
+.weather-section{scroll-margin-top:82px}
+.weather-live-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.weather-now-card,.trip-forecast-card,.weather-history,.packing-advice,.packing-list-card{
+  border:1px solid var(--line);border-radius:24px;background:var(--paper);box-shadow:var(--shadow)
+}
+.weather-now-card,.trip-forecast-card{padding:24px}
+.weather-card-top,.weather-card-heading,.packing-head{
+  display:flex;justify-content:space-between;align-items:flex-start;gap:20px
+}
+.weather-kicker{
+  display:block;font-size:9px;font-weight:800;letter-spacing:.14em;color:var(--terracotta);margin-bottom:7px
+}
+.weather-now-card h3,.trip-forecast-card h3,.packing-area h3,.weather-history h3{
+  font-size:28px
+}
+.weather-card-top p{margin:5px 0 0;color:var(--muted);font-size:11px}
+.weather-symbol{
+  width:64px;height:64px;border-radius:50%;display:grid;place-items:center;
+  background:#eee3d3;font-size:31px;flex:0 0 64px
+}
+.weather-main-temp{display:flex;align-items:flex-end;gap:18px;margin:26px 0 22px}
+.weather-main-temp>strong{font-family:"DM Serif Display",serif;font-size:70px;font-weight:400;line-height:.9}
+.weather-main-temp div{padding-bottom:4px}
+.weather-main-temp span,.weather-main-temp small{display:block}
+.weather-main-temp span{font-size:13px;font-weight:700}
+.weather-main-temp small{font-size:10px;color:var(--muted);margin-top:3px}
+.weather-metrics{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.weather-metrics div{padding:13px 10px}
+.weather-metrics div+div{border-left:1px solid var(--line)}
+.weather-metrics span,.weather-metrics strong{display:block}
+.weather-metrics span{font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
+.weather-metrics strong{font-size:13px;margin-top:3px}
+.weather-actions{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-top:16px}
+.weather-actions #weather-status{font-size:10px;color:var(--muted);text-align:right}
+.forecast-badge{
+  border:1px solid var(--line);border-radius:999px;padding:5px 8px;font-size:8px;
+  color:var(--muted);font-weight:800;text-transform:uppercase;letter-spacing:.08em;white-space:nowrap
+}
+.forecast-badge.ready{color:var(--olive);border-color:rgba(102,112,90,.35)}
+.trip-forecast-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-top:22px}
+.trip-day{border:1px solid var(--line);border-radius:16px;padding:14px 12px;min-height:142px}
+.trip-day>span{font-size:9px;font-weight:800;letter-spacing:.08em;color:var(--terracotta)}
+.trip-day .trip-weather-icon{display:block;font-size:25px;margin:8px 0 1px}
+.trip-day strong{display:block;font-family:"DM Serif Display",serif;font-size:21px;font-weight:400}
+.trip-day small{display:block;color:var(--muted);font-size:9px;margin-top:3px;line-height:1.35}
+.trip-day.is-loading{opacity:.62}
+.trip-day.is-available{background:#f8f2e8}
+.weather-explain{font-size:10px;color:var(--muted);margin:14px 0 0;line-height:1.5}
+
+.weather-history{margin-top:16px;padding:28px}
+.weather-subhead{display:grid;grid-template-columns:1fr .8fr;gap:30px;align-items:end;margin-bottom:22px}
+.weather-subhead .eyebrow{margin-bottom:6px}
+.weather-subhead>p{margin:0;color:var(--muted);font-size:12px}
+.history-summary{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--line);border-radius:18px;overflow:hidden}
+.history-summary article{padding:17px;background:var(--bg)}
+.history-summary article+article{border-left:1px solid var(--line)}
+.history-summary span,.history-summary strong,.history-summary small{display:block}
+.history-summary span{font-size:9px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
+.history-summary strong{font-family:"DM Serif Display",serif;font-size:26px;font-weight:400;margin:3px 0}
+.history-summary small{font-size:9px;color:var(--muted)}
+.history-days{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:12px}
+.history-days article{border:1px solid var(--line);border-radius:14px;padding:14px}
+.history-days span,.history-days strong,.history-days small{display:block}
+.history-days span{font-size:9px;font-weight:800;color:var(--terracotta);letter-spacing:.1em}
+.history-days strong{font-size:15px;margin-top:5px}
+.history-days small{font-size:9px;color:var(--muted);margin-top:2px}
+
+.packing-area{display:grid;grid-template-columns:.9fr 1.1fr;gap:16px;margin-top:16px}
+.packing-advice,.packing-list-card{padding:26px}
+.packing-advice>p{color:var(--muted);font-size:13px;margin:12px 0 18px}
+.vatican-dress{
+  display:grid;grid-template-columns:34px 1fr;gap:11px;align-items:start;
+  border-top:1px solid var(--line);padding-top:16px
+}
+.vatican-dress>span{
+  width:32px;height:32px;border-radius:50%;background:#efe2d2;color:var(--terracotta);
+  display:grid;place-items:center
+}
+.vatican-dress p{margin:0;font-size:11px;color:var(--muted)}
+.vatican-dress strong{color:var(--ink)}
+.packing-head small{font-size:9px;color:var(--muted);margin-top:4px}
+.packing-checklist{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:18px}
+.packing-checklist label{
+  display:flex;gap:9px;align-items:flex-start;border:1px solid var(--line);
+  border-radius:12px;padding:10px;background:var(--bg);cursor:pointer
+}
+.packing-checklist input{accent-color:var(--terracotta);margin-top:3px}
+.packing-checklist span{font-size:10px;line-height:1.35}
+.weather-source-note{
+  margin-top:16px;border:1px solid var(--line);border-radius:16px;padding:14px 16px;
+  display:grid;grid-template-columns:24px 1fr auto;gap:10px;align-items:center;color:var(--muted)
+}
+.weather-source-note>span{color:var(--terracotta)}
+.weather-source-note p{margin:0;font-size:9px;line-height:1.45}
+.weather-source-note a{font-size:9px;font-weight:800;color:var(--terracotta);text-decoration:none;white-space:nowrap}
+
+/* noche */
+html[data-theme="night"] .weather-symbol{background:#3a3329}
+html[data-theme="night"] .trip-day.is-available{background:#292821}
+html[data-theme="night"] .history-summary article,
+html[data-theme="night"] .packing-checklist label{background:#1d1e1a}
+html[data-theme="night"] .vatican-dress>span{background:#3a3026}
+html[data-theme="night"] .weather-now-card,
+html[data-theme="night"] .trip-forecast-card,
+html[data-theme="night"] .weather-history,
+html[data-theme="night"] .packing-advice,
+html[data-theme="night"] .packing-list-card{background:var(--paper)}
+
+@media (max-width:900px){
+  .weather-live-grid,.packing-area{grid-template-columns:1fr}
+  .history-summary{grid-template-columns:repeat(2,1fr)}
+  .history-summary article:nth-child(3){border-left:0;border-top:1px solid var(--line)}
+  .history-summary article:nth-child(4){border-top:1px solid var(--line)}
+  .weather-subhead{grid-template-columns:1fr;gap:8px}
+}
+@media (max-width:680px){
+  .weather-now-card,.trip-forecast-card,.weather-history,.packing-advice,.packing-list-card{padding:20px 16px}
+  .weather-symbol{width:54px;height:54px;flex-basis:54px;font-size:27px}
+  .weather-main-temp>strong{font-size:58px}
+  .weather-metrics div{padding:11px 6px}
+  .weather-metrics strong{font-size:11px}
+  .weather-actions{align-items:flex-start;flex-direction:column}
+  .weather-actions .mini-btn{width:100%}
+  .weather-actions #weather-status{text-align:left}
+  .trip-forecast-grid{grid-template-columns:1fr}
+  .trip-day{min-height:0;display:grid;grid-template-columns:58px 36px 1fr;gap:8px;align-items:center}
+  .trip-day .trip-weather-icon{margin:0}
+  .trip-day strong{font-size:17px}
+  .history-summary{grid-template-columns:1fr 1fr}
+  .history-summary article{padding:13px}
+  .history-summary strong{font-size:22px}
+  .history-days{grid-template-columns:1fr}
+  .packing-checklist{grid-template-columns:1fr}
+  .weather-source-note{grid-template-columns:22px 1fr}
+  .weather-source-note a{grid-column:2}
+}
+
+
+/* =========================================================
+   V3.4 · Transporte desde el alojamiento
+   ========================================================= */
+.transport-section{scroll-margin-top:82px}
+.fare-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:18px;overflow:hidden;margin-bottom:14px}
+.fare-strip article{background:var(--paper);padding:15px;display:flex;align-items:center;gap:11px}
+.fare-icon{width:38px;height:38px;border-radius:11px;background:#eee3d3;display:grid;place-items:center;color:var(--terracotta);font-size:9px;font-weight:800;letter-spacing:.04em}
+.fare-strip strong,.fare-strip small{display:block}
+.fare-strip strong{font-family:"DM Serif Display",serif;font-size:20px;font-weight:400}
+.fare-strip small{font-size:9px;color:var(--muted);line-height:1.35}
+.transport-recommendation{display:grid;grid-template-columns:42px 1fr;gap:13px;align-items:start;padding:17px 18px;border:1px solid var(--line);border-radius:17px;background:#f8f2e8;margin-bottom:18px}
+.transport-recommendation>span{width:38px;height:38px;border-radius:50%;display:grid;place-items:center;background:var(--terracotta);color:#fff;font-size:18px}
+.transport-recommendation strong{font-size:13px}
+.transport-recommendation p{margin:4px 0 0;color:var(--muted);font-size:11px;line-height:1.55}
+.transport-recommendation b{color:var(--ink)}
+.transport-days{display:grid;grid-template-columns:1fr;gap:14px}
+.transport-day-card{border:1px solid var(--line);border-radius:23px;background:var(--paper);padding:23px;box-shadow:var(--shadow)}
+.transport-day-card.featured{background:#f8f2e8}
+.transport-day-head{display:grid;grid-template-columns:54px 1fr auto;gap:14px;align-items:center;border-bottom:1px solid var(--line);padding-bottom:16px}
+.transport-date{width:50px;height:50px;border-radius:50%;display:grid;place-items:center;background:var(--ink);color:var(--paper);font:25px/1 "DM Serif Display",serif}
+.transport-day-head small{display:block;font-size:9px;letter-spacing:.12em;color:var(--muted);font-weight:800}
+.transport-day-head h3{font-size:27px;margin-top:3px}
+.transport-pill{border-radius:999px;padding:6px 9px;background:var(--terracotta);color:#fff;font-size:9px;font-weight:800;letter-spacing:.08em;white-space:nowrap}
+.transport-pill.walk{background:var(--olive)}
+.transport-intro{font-size:12px;color:var(--muted);margin:16px 0 10px}
+.transport-intro strong{color:var(--ink)}
+.transport-steps{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:13px 0}
+.transport-steps>div{border:1px solid var(--line);border-radius:14px;padding:12px;background:var(--bg);min-height:112px}
+.transport-steps span{width:24px;height:24px;border-radius:50%;display:grid;place-items:center;background:var(--ink);color:var(--paper);font-size:9px;font-weight:800;margin-bottom:8px}
+.transport-steps p{margin:0;color:var(--muted);font-size:10px;line-height:1.45}
+.transport-steps b{color:var(--ink)}
+.transport-cost,.locker-window{border-left:2px solid var(--gold);padding:5px 0 5px 13px;margin:14px 0}
+.transport-cost>span,.locker-window>span{display:block;font-size:8px;font-weight:800;letter-spacing:.12em;color:var(--terracotta)}
+.transport-cost strong,.locker-window strong{display:block;font-family:"DM Serif Display",serif;font-size:20px;font-weight:400;margin:2px 0}
+.transport-cost small,.locker-window small{display:block;color:var(--muted);font-size:10px;line-height:1.45;max-width:760px}
+.locker-window{border-left-color:var(--olive)}
+.locker-window>span{color:var(--olive)}
+.transport-alt{border-top:1px dashed var(--line);padding-top:12px;margin-top:12px}
+.transport-alt summary{cursor:pointer;list-style:none;font-size:11px;font-weight:800;color:var(--olive)}
+.transport-alt summary::-webkit-details-marker{display:none}
+.transport-alt summary::after{content:"＋";float:right;font-weight:400}
+.transport-alt[open] summary::after{content:"−"}
+.transport-alt>div{padding-top:9px;color:var(--muted);font-size:10px}
+.transport-alt p{margin:0 0 7px}
+.transport-alt p:last-child{margin-bottom:0}
+.transport-actions{display:flex;gap:12px;align-items:center;flex-wrap:wrap;border-top:1px solid var(--line);padding-top:14px;margin-top:14px}
+.transport-actions .text-link{font-size:10px}
+.transport-bottom-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}
+.tap-card,.airport-card{border:1px solid var(--line);border-radius:20px;background:var(--paper);padding:21px}
+.tap-card h3,.airport-card h3{font-size:26px}
+.tap-card p,.airport-card p{font-size:11px;color:var(--muted);line-height:1.55}
+.tap-warning{border-top:1px solid var(--line);padding-top:11px}
+.airport-mini-route{display:flex;align-items:center;gap:9px;margin:14px 0;flex-wrap:wrap}
+.airport-mini-route span{border:1px solid var(--line);border-radius:999px;padding:6px 9px;font-size:9px;font-weight:800}
+.airport-mini-route i{color:var(--terracotta);font-style:normal}
+.transport-live-note{margin-top:14px;border:1px solid #ddcdbb;border-radius:16px;padding:13px 15px;background:#f5ede1;display:grid;grid-template-columns:28px 1fr;gap:10px;align-items:start}
+.transport-live-note>span{width:26px;height:26px;border-radius:50%;display:grid;place-items:center;background:var(--gold);color:#fff;font-weight:800}
+.transport-live-note p{margin:1px 0 0;color:var(--muted);font-size:10px;line-height:1.5}
+.transport-live-note strong{color:var(--ink)}
+html[data-theme="night"] .fare-icon{background:#3a3329}
+html[data-theme="night"] .transport-recommendation,
+html[data-theme="night"] .transport-day-card.featured{background:#292821}
+html[data-theme="night"] .transport-steps>div{background:#1d1e1a}
+html[data-theme="night"] .transport-live-note{background:#2f2921;border-color:#4c4134}
+html[data-theme="night"] .fare-strip article,
+html[data-theme="night"] .transport-day-card,
+html[data-theme="night"] .tap-card,
+html[data-theme="night"] .airport-card{background:var(--paper)}
+@media (max-width:900px){
+  .fare-strip{grid-template-columns:repeat(2,1fr)}
+  .transport-steps{grid-template-columns:repeat(2,1fr)}
+  .transport-bottom-grid{grid-template-columns:1fr}
+}
+@media (max-width:680px){
+  .fare-strip{grid-template-columns:1fr 1fr}
+  .fare-strip article{padding:12px 10px}
+  .transport-day-card{padding:19px 15px}
+  .transport-day-head{grid-template-columns:48px 1fr}
+  .transport-date{width:44px;height:44px;font-size:22px}
+  .transport-day-head h3{font-size:23px}
+  .transport-pill{grid-column:2;justify-self:start;margin-top:-6px}
+  .transport-steps{grid-template-columns:1fr}
+  .transport-steps>div{min-height:0;display:grid;grid-template-columns:28px 1fr;gap:8px;align-items:start}
+  .transport-steps span{margin:0}
+  .transport-actions{align-items:stretch;flex-direction:column}
+  .transport-actions .mini-btn{width:100%}
+}
