@@ -175,8 +175,12 @@ const placeMap={
   'Chiesa del Gesù':'Chiesa del Gesù, Roma, Italy',
   'Panteón':'Via del Pozzo delle Cornacchie 56, Roma, Italy',
   'Piazza Navona':'Piazza Navona, Roma, Italy',
+  'Pompi · Piazza Navona':'Pompi Piazza Navona, Via di Tor Millina 33, Roma, Italy',
   'Campo de’ Fiori':'Campo de Fiori, Roma, Italy',
   'Ponte Sisto → Trastevere':'Ponte Sisto, Roma, Italy',
+  'Da Tony · Trastevere':'La Tavernetta 29 da Tony e Andrea, Via della Pelliccia 29A, Roma, Italy',
+  'Piazza Trilussa':'Piazza Trilussa, Roma, Italy',
+  'Santa Maria in Trastevere':'Basilica di Santa Maria in Trastevere, Roma, Italy',
   'Cúpula de San Pedro':'Basilica di San Pietro, Vatican City',
   'Checkout + maletas':'Via Filippo Turati 52, Roma, Italy',
   'Santa Maria Maggiore':'Basilica di Santa Maria Maggiore, Roma, Italy',
@@ -187,7 +191,7 @@ const placeMap={
   'Terravision → Fiumicino':'Via Giovanni Giolitti 38, Roma, Italy'
 };
 const cardMap={
-  'Museos Vaticanos':'Musei Vaticani, Vatican City','Basílica y cúpula de San Pedro':'Basilica di San Pietro, Vatican City','Castel Sant’Angelo y su puente':'Castel Sant Angelo, Roma, Italy','Pincio':'Terrazza del Pincio, Roma, Italy','Piazza del Popolo':'Piazza del Popolo, Roma, Italy','San Pietro in Vincoli':'San Pietro in Vincoli, Roma, Italy','Coliseo':'Colosseo, Roma, Italy','Foro Romano':'Foro Romano, Roma, Italy','Palatino':'Palatino, Roma, Italy','Vittoriano':'Vittoriano, Roma, Italy','Campidoglio':'Piazza del Campidoglio, Roma, Italy','Chiesa del Gesù':'Chiesa del Gesù, Roma, Italy','Panteón':'Pantheon, Roma, Italy','Piazza Navona':'Piazza Navona, Roma, Italy','Campo de’ Fiori':'Campo de Fiori, Roma, Italy','Ponte Sisto':'Ponte Sisto, Roma, Italy','Santa Maria in Trastevere':'Basilica di Santa Maria in Trastevere, Roma, Italy','Santa Maria Maggiore':'Basilica di Santa Maria Maggiore, Roma, Italy','Santa Maria della Vittoria':'Santa Maria della Vittoria, Roma, Italy','Piazza della Repubblica':'Piazza della Repubblica, Roma, Italy','Fontana di Trevi':'Fontana di Trevi, Roma, Italy','Piazza di Spagna':'Piazza di Spagna, Roma, Italy'
+  'Museos Vaticanos':'Musei Vaticani, Vatican City','Basílica y cúpula de San Pedro':'Basilica di San Pietro, Vatican City','Castel Sant’Angelo y su puente':'Castel Sant Angelo, Roma, Italy','Pincio':'Terrazza del Pincio, Roma, Italy','Piazza del Popolo':'Piazza del Popolo, Roma, Italy','San Pietro in Vincoli':'San Pietro in Vincoli, Roma, Italy','Coliseo':'Colosseo, Roma, Italy','Foro Romano':'Foro Romano, Roma, Italy','Palatino':'Palatino, Roma, Italy','Vittoriano':'Vittoriano, Roma, Italy','Campidoglio':'Piazza del Campidoglio, Roma, Italy','Chiesa del Gesù':'Chiesa del Gesù, Roma, Italy','Panteón':'Pantheon, Roma, Italy','Piazza Navona':'Piazza Navona, Roma, Italy','Campo de’ Fiori':'Campo de Fiori, Roma, Italy','Ponte Sisto':'Ponte Sisto, Roma, Italy','Piazza Trilussa':'Piazza Trilussa, Roma, Italy','Santa Maria in Trastevere':'Basilica di Santa Maria in Trastevere, Roma, Italy','Santa Maria Maggiore':'Basilica di Santa Maria Maggiore, Roma, Italy','Santa Maria della Vittoria':'Santa Maria della Vittoria, Roma, Italy','Piazza della Repubblica':'Piazza della Repubblica, Roma, Italy','Fontana di Trevi':'Fontana di Trevi, Roma, Italy','Piazza di Spagna':'Piazza di Spagna, Roma, Italy'
 };
 function mapsDir(destination){return 'https://www.google.com/maps/dir/?api=1&destination='+encodeURIComponent(destination)+'&travelmode=walking'}
 document.querySelectorAll('.day-block li').forEach(li=>{const strong=li.querySelector('strong');const dest=placeMap[strong?.textContent.trim()];if(!dest)return;const a=document.createElement('a');a.className='stop-map';a.target='_blank';a.rel='noopener';a.href=mapsDir(dest);a.textContent='Cómo llegar';strong.parentElement.appendChild(a)});
@@ -219,7 +223,12 @@ const schedule=[
   {at:'2026-10-11T11:30:00+02:00',lead:20,title:'Punto de encuentro del Coliseo',text:'Via dei Fori Imperiali, 1 · la visita empieza a las 12:00.',dest:'Via dei Fori Imperiali 1, Roma, Italy'},
   {at:'2026-10-11T15:45:00+02:00',lead:10,title:'Piazza Venezia y Campidoglio',text:'Empieza el paseo a pie por el centro histórico.',dest:'Piazza Venezia, Roma, Italy'},
   {at:'2026-10-11T17:40:00+02:00',lead:20,title:'Punto de encuentro del Panteón',text:'Via del Pozzo delle Cornacchie, 56 · entrada a las 18:00.',dest:'Via del Pozzo delle Cornacchie 56, Roma, Italy'},
-  {at:'2026-10-11T18:45:00+02:00',lead:5,title:'Navona → Trastevere',text:'Piazza Navona, Campo de’ Fiori, Ponte Sisto y cena.',dest:'Piazza Navona, Roma, Italy'},
+  {at:'2026-10-11T18:45:00+02:00',lead:5,title:'Piazza Navona',text:'Primera parada después del Panteón.',dest:'Piazza Navona, Roma, Italy'},
+  {at:'2026-10-11T19:05:00+02:00',lead:5,title:'Tiramisú en Pompi',text:'Via di Tor Millina, 33 · parada corta antes de seguir hacia Campo de’ Fiori.',dest:'Pompi Piazza Navona, Via di Tor Millina 33, Roma, Italy'},
+  {at:'2026-10-11T19:20:00+02:00',lead:5,title:'Campo de’ Fiori → Ponte Sisto',text:'Seguimos andando hacia Trastevere.',dest:'Campo de Fiori, Roma, Italy'},
+  {at:'2026-10-11T19:50:00+02:00',lead:10,title:'Cena en Da Tony',text:'Via della Pelliccia, 29A. Si la cola amenaza las 21:00, priorizamos Trilussa.',dest:'La Tavernetta 29 da Tony e Andrea, Via della Pelliccia 29A, Roma, Italy'},
+  {at:'2026-10-11T21:00:00+02:00',lead:10,title:'Piazza Trilussa',text:'Hora objetivo para sentarnos un rato y disfrutar del ambiente y los artistas callejeros.',dest:'Piazza Trilussa, Roma, Italy'},
+  {at:'2026-10-11T21:45:00+02:00',lead:5,title:'Santa Maria in Trastevere',text:'Paseo final opcional por el corazón del barrio.',dest:'Basilica di Santa Maria in Trastevere, Roma, Italy'},
   {at:'2026-10-12T07:00:00+02:00',lead:20,title:'Cúpula de San Pedro',text:'Roma despertando desde arriba.',dest:'Basilica di San Pietro, Vatican City'},
   {at:'2026-10-12T10:00:00+02:00',lead:10,title:'Checkout y locker',text:'Maletas hacia Via Filippo Turati, 52, junto a Termini.',dest:'Via Filippo Turati 52, Roma, Italy'},
   {at:'2026-10-12T10:40:00+02:00',lead:10,title:'Santa Maria Maggiore',text:'Comienza nuestro último paseo por Roma.',dest:'Basilica di Santa Maria Maggiore, Roma, Italy'},

@@ -250,3 +250,31 @@ html[data-theme="night"] .route-memory-row input{background:#1b1c18}
     transition:none!important;
   }
 }
+
+
+/* V3.2 · paradas gastronómicas ya integradas en el planning */
+.food-spot.food-planned{
+  margin:4px -7px;
+  padding:13px 7px;
+  border-radius:13px;
+  background:rgba(155,91,69,.055);
+  border-bottom:0;
+}
+.food-spot.food-planned + .food-spot{margin-top:4px}
+.food-spot strong em{
+  display:inline-block;
+  margin-left:5px;
+  padding:2px 5px;
+  border-radius:999px;
+  background:var(--terracotta);
+  color:#fff;
+  font-family:"DM Sans",sans-serif;
+  font-size:7px;
+  font-style:normal;
+  font-weight:800;
+  letter-spacing:.09em;
+  vertical-align:middle;
+}
+html[data-theme="night"] .food-spot.food-planned{
+  background:rgba(196,123,97,.09);
+}

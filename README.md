@@ -1,30 +1,35 @@
-# Roma contigo, Rayito · v3.1
+# Roma contigo, Rayito · v3.2
 
-Actualización conservadora de la V3. Mantiene su diseño, estructura y filosofía, y añade únicamente las dos funciones elegidas.
+La V3.2 mantiene exactamente la base visual y funcional de la V3.1 y reorganiza el final del domingo 11 para incorporar tres nuevas paradas.
 
-## Modo día / noche
-- Automático por defecto:
-  - Día: 07:00–17:59.
-  - Noche: 18:00–06:59.
-- Selector manual en el menú: **Auto → Día → Noche**.
-- La elección queda guardada en el navegador.
-- El tema oscuro mantiene tonos cálidos y apagados, sin negro puro.
+## Nuevas paradas del domingo
+- **19:05 · Pompi Piazza Navona**
+  - Tiramisú.
+  - Via di Tor Millina, 33.
+- **19:50 · Da Tony, Trastevere**
+  - Referencia usada en la guía: La Tavernetta 29 da Tony e Andrea.
+  - Via della Pelliccia, 29A.
+  - Si hay demasiada cola, se protege la llegada a Trilussa.
+- **21:00 · Piazza Trilussa**
+  - Franja reservada para disfrutar del ambiente y de artistas callejeros.
+- Después: paseo opcional por **Santa Maria in Trastevere**.
 
-## “Momento Rayito” dentro del itinerario
-Cada jornada termina con un discreto **♡ Momento Rayito** de una sola frase.
+## Cambios relacionados
+- Las tres paradas aparecen en el itinerario del domingo.
+- Se han añadido al sistema **“Ahora toca”**.
+- Tienen enlaces directos a Google Maps.
+- Pompi y Da Tony aparecen destacados como **EN RUTA** en la sección gastronómica.
+- Piazza Trilussa tiene ahora su propia ficha de lectura ligera.
+- Se añade un Plan B específico si hay cola en Da Tony.
+- El “Momento Rayito” del domingo pasa de las 21:00 a las **22:15** para no interrumpir Piazza Trilussa.
+- Caché offline actualizada a `roma-rayito-v32`.
 
-Se abre automáticamente si está vacío al terminar aproximadamente la jornada:
-- Sábado 10: 20:00.
-- Domingo 11: 21:00.
-- Lunes 12: 14:15.
+## Se conserva de la V3.1
+- Modo Auto / Día / Noche.
+- Diario y “Momento Rayito”.
+- Información práctica, Plan B, italiano, restaurantes y funcionamiento offline.
+- Ningún PDF, QR o entrada privada se publica.
 
-También se puede abrir manualmente en cualquier momento.
-
-El texto está sincronizado con el diario **“Roma, tú y yo”** de la parte final de la web. Si escribes en uno, aparece en el otro.
-
-## Privacidad
-Tema, checks y recuerdos se guardan únicamente en `localStorage` del navegador. No se suben a GitHub ni a ningún servidor.
-
-## Actualizar GitHub Pages
-Sustituye los archivos de la raíz del repositorio por estos y haz un commit.  
-El Service Worker usa la caché `roma-rayito-v31`, así que después de publicar conviene abrir la web con conexión y recargarla una vez.
+## GitHub Pages
+Sustituye los archivos de la raíz del repositorio por los de esta carpeta y haz un commit.
+Después, abre la web una vez con conexión y recarga para activar la nueva caché V3.2.
